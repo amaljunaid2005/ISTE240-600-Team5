@@ -15,9 +15,14 @@ public class Review {
     private int id;
     private String reviewText;
     private int rating; // Rating given by the user (1–5)
-    private int userId;
-    private int movieId;
+    private UserProfile userProfile;
+    private Movie movie;
     private LocalDate reviewDate;
+
+    public Review(Movie movie, UserProfile userProfile) {
+        this.movie = movie;
+        this.userProfile = userProfile;
+    }
 
     public int getId() {
         return id;
@@ -46,20 +51,28 @@ public class Review {
         this.rating = rating;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserProfile() {
+        return userProfile.getUserID();
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public int getMovie() {
+        return movie.getId();
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public int getUserId(){
+        return userProfile.getUserID();
+    }
+
+    public int getMovieId(){
+        return movie.getId();
     }
 
     public LocalDate getReviewDate() {
