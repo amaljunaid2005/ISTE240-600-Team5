@@ -9,8 +9,8 @@ import java.util.List;
 @Component
 public class FavoritesWatchlist {
 
-    private List<String> watchlist;
-    private List<String> favorites;
+    private List<Movie> watchlist;
+    private List<Movie> favorites;
 
     private UserProfile userProfile;
 
@@ -21,11 +21,11 @@ public class FavoritesWatchlist {
         this.favorites = new ArrayList<>();
     }
 
-    public List<String> getWatchlist() {
+    public List<Movie> getWatchlist() {
         return watchlist;
     }
 
-    public List<String> getFavorites() {
+    public List<Movie> getFavorites() {
         return favorites;
     }
 
@@ -33,23 +33,19 @@ public class FavoritesWatchlist {
         return userProfile;
     }
 
-    public void addToWatchlist(String movieId) {
-        if (!watchlist.contains(movieId)) {
-            watchlist.add(movieId);
-        }
+    public void addToWatchlist(Movie movie) {
+        watchlist.add(movie);
     }
 
-    public void addToFavorites(String movieId) {
-        if (!favorites.contains(movieId)) {
-            favorites.add(movieId);
-        }
+    public void addToFavorites(Movie movie) {
+        favorites.add(movie);
     }
 
-    public void removeFromWatchlist(String movieId) {
-        watchlist.remove(movieId);
+    public void removeFromWatchlist(Movie movie) {
+        watchlist.remove(movie);
     }
 
-    public void removeFromFavorites(String movieId) {
-        favorites.remove(movieId);
+    public void removeFromFavorites(Movie movie) {
+        favorites.remove(movie);
     }
 }
