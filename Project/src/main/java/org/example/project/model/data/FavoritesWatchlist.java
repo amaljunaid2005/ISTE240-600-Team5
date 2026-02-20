@@ -17,8 +17,8 @@ public class FavoritesWatchlist {
     @Autowired
     public FavoritesWatchlist(UserProfile userProfile) {
         this.userProfile = userProfile;
-        this.watchlist = new ArrayList<>();
-        this.favorites = new ArrayList<>();
+        this.watchlist = new ArrayList<Movie>();
+        this.favorites = new ArrayList<Movie>();
     }
 
     public List<Movie> getWatchlist() {
