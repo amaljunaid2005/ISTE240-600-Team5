@@ -1,7 +1,10 @@
 package org.example.project.model;
 
 import org.springframework.stereotype.Component;
-
+/*
+ * Represents a Movie that can be reviewed or added to a favorites list
+ * Includes a unique id, the name of the movie, its genre, director and lead actor as well as a short description of its premise.
+ */
 @Component
 public class Movie {
     private int id;
@@ -10,6 +13,15 @@ public class Movie {
     private double rating;
     private String leadActor;
     private String genre;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getGenre() {
         return genre;
