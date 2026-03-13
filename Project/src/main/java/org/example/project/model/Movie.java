@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Movie {
     private int id;
     private String movieName;
-    private int releaseYear
+    private int releaseYear;
     private String director;
     private double rating;
     private String leadActor;
