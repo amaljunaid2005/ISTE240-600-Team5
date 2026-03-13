@@ -5,13 +5,13 @@
     <title>Movies</title>
 </head>
 <body>
+<h2>Movie Table</h2>
 <table border="1">
     <tr>
-        <th>ID</th>
         <th>Movie Name</th>
         <th>Release Year</th>
         <th>Director</th>
-        <th>Rating</th>
+        <th>Rating (/10)</th>
         <th>Lead Actor</th>
         <th>Genre</th>
         <th>Description</th>
@@ -19,7 +19,6 @@
     <!--Loop in a table-->
     {{#movieList}}
         <tr>
-            <td>{{id}}</td>
             <td>{{movieName}}</td>
             <td>{{releaseYear}}</td>
             <td>{{director}}</td>
@@ -30,6 +29,6 @@
         </tr>
     {{/movieList}}
 </table>
-
+<a href="movies/add">Add another movie.</a>
 </body>
 </html>

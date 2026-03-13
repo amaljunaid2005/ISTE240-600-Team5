@@ -59,9 +59,7 @@ public class Review {
         this.userProfile = userProfile;
     }
 
-    public int getMovie() {
-        return movie.getId();
-    }
+
 
     public void setMovie(Movie movie) {
         this.movie = movie;
@@ -71,9 +69,7 @@ public class Review {
         return userProfile.getUserID();
     }
 
-    public int getMovieId(){
-        return movie.getId();
-    }
+
 
     public LocalDate getReviewDate() {
         return reviewDate;
