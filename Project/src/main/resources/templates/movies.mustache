@@ -5,6 +5,31 @@
     <title>Movies</title>
 </head>
 <body>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Movie Name</th>
+        <th>Release Year</th>
+        <th>Director</th>
+        <th>Rating</th>
+        <th>Lead Actor</th>
+        <th>Genre</th>
+        <th>Description</th>
+    </tr>
+    <!--Loop in a table-->
+    {{#movieList}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{movieName}}</td>
+            <td>{{releaseYear}}</td>
+            <td>{{director}}</td>
+            <td>{{rating}}</td>
+            <td>{{leadActor}}</td>
+            <td>{{genre}}</td>
+            <td>{{Description}}</td>
+        </tr>
+    {{/movieList}}
+</table>
 
 </body>
 </html>

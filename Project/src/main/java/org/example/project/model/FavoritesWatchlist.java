@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 public class FavoritesWatchlist {
 
     private List<Movie> watchlist;
@@ -14,7 +14,7 @@ public class FavoritesWatchlist {
 
     private UserProfile userProfile;
 
-    @Autowired
+
     public FavoritesWatchlist(UserProfile userProfile) {
         this.userProfile = userProfile;
         this.watchlist = new ArrayList<Movie>();

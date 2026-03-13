@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@Component
+
 
 /*
  * Represents a review written by a user for a movie.
