@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     private MainService mainService;
 
+    public MainController(MainService mainService) {
+        this.mainService = mainService;
+    }
+
     @GetMapping("/")
     public String getHome(){
-        return "index.html";
+        return "index";
     }
 
     @GetMapping("/movies")
