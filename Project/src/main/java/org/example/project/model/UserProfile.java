@@ -6,8 +6,7 @@ public class UserProfile {
     private int UserID;
     private String username;
     private String email;
-    private double age;
-    private String password;
+    private int age;
     private String bio;
     //profile picture//
 
@@ -43,9 +42,7 @@ public class UserProfile {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
+   
 
     public String getBio() {
         return bio;
@@ -55,9 +52,6 @@ public class UserProfile {
         this.bio = bio;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public void setUsername(String username) {
         this.username = username;
