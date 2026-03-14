@@ -3,7 +3,6 @@ package org.example.project.controllers;
 import org.example.project.model.Movie;
 import org.example.project.model.Ticket;
 import org.example.project.services.MainService;
-import org.example.project.service.DataService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
