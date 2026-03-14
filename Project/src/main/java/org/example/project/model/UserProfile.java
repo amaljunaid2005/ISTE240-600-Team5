@@ -8,7 +8,16 @@ public class UserProfile {
     private String email;
     private int age;
     private String bio;
-    //profile picture//
+
+   public UserProfile(int UserID, String username, String email, int age, String bio) {
+       this.UserID = UserID;
+       this.username = username;
+       this.email = email;
+       this.age = age;
+       this.bio = bio;
+       
+   }
+
 
 
     public int getUserID() {
@@ -42,7 +51,7 @@ public class UserProfile {
         return username;
     }
 
-   
+    
 
     public String getBio() {
         return bio;
@@ -52,6 +61,7 @@ public class UserProfile {
         this.bio = bio;
     }
 
+    
 
     public void setUsername(String username) {
         this.username = username;
