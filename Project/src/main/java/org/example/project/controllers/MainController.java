@@ -44,4 +44,25 @@ public class MainController {
         data.addAttribute("movieList", this.mainService.findAllMovies());
         return "redirect:/add/success/movies";
     }
+
+    // Review Pages
+    @GetMapping("/reviews")
+    public String getReviews(Model model){
+        model.addAttribute("movieList", this.mainService.findAllMovies());
+        return "reviews";
+    }
+
+    @GetMapping("/reviews/add")
+    public String getReviewForm(){
+        return "add-reviews";
+    }
+
+    @PostMapping("/reviews/add")
+    public String addReview(Model data, Movie movie) {
+        this.mainService.saveMovie(movie);
+        data.addAttribute("movieList", this.mainService.findAllMovies());
+        return "redirect:/add/success/reviews";
+    }
+
+
 }
