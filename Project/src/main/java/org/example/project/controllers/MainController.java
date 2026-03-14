@@ -1,6 +1,7 @@
 package org.example.project.controllers;
 
 import org.example.project.model.Movie;
+import org.example.project.model.Review;
 import org.example.project.services.MainService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,9 +59,9 @@ public class MainController {
     }
 
     @PostMapping("/reviews/add")
-    public String addReview(Model data, Movie movie) {
-        this.mainService.saveMovie(movie);
-        data.addAttribute("movieList", this.mainService.findAllMovies());
+    public String addReview(Model data, Review review) {
+        this.mainService.saveReview(review);
+        data.addAttribute("reviewList", this.mainService.findAllReviews());
         return "redirect:/add/success/reviews";
     }
 
