@@ -1,8 +1,12 @@
 package org.example.project.services;
 
+import org.apache.catalina.User;
 import org.example.project.model.Movie;
 import org.example.project.model.Review;
 import org.example.project.model.UserProfile;
+import org.example.project.model.Ticket;
+import org.example.project.model.UserProfile;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,9 +14,11 @@ import java.util.List;
 
 @Service
 public class MainService {
+
     List<Movie> movieList = new ArrayList<Movie>();
-    List<UserProfile> userProfileList = new ArrayList<>();
+    List<UserProfile> userList = new ArrayList<>();
     List<Review> reviewList = new ArrayList<>();
+     List<Ticket> tickets = new ArrayList<>();
 
     private int reviewIdCounter = 4;
 
@@ -29,8 +35,8 @@ public class MainService {
         var user1 = new UserProfile(1,"John");
         var user2 = new UserProfile(2,"Anna");
 
-        this.userProfileList.add(user1);
-        this.userProfileList.add(user2);
+        this.userList.add(user1);
+        this.userList.add(user2);
 
         // Reviews
         var review1 = new Review(1, "Really enjoyable. Have watched this multiple times. Feel good family film. Good performances.", 7, user1, movie1);
@@ -45,15 +51,45 @@ public class MainService {
         this.reviewList.add(review1);
         this.reviewList.add(review2);
         this.reviewList.add(review3);
+
+        // Tickets
+        Ticket t1 = new Ticket(1,user1,movie1,"2026-03-15 19:30");
+        Ticket t2 = new Ticket(2,user2,movie2,"2026-03-16 21:00");
+
+        tickets.add(t1);
+        tickets.add(t2);
     }
 
+    // Getting and Adding movies
     public List<Movie> findAllMovies(){return this.movieList;}
+
     public void saveMovie(Movie movie){this.movieList.add(movie);}
+
+    // Getting and Adding movies
+    public List<UserProfile> findAllUsers(){
+        return this.userList;
+    }
+
+    public void saveUser(UserProfile user){this.userList.add(user);}
 
     // Getting and Adding reviews
     public List<Review> findAllReviews(){return this.reviewList;}
+
     public void saveReview(Review review){
         review.setId(reviewIdCounter++);
         this.reviewList.add(review);
     }
-}
+
+    // Getting and Adding tickets
+    public List<Ticket> findAllTickets(){
+        return this.tickets;
+    }
+
+    public void saveTicket(Ticket ticket){
+        this.tickets.add(ticket);
+    }
+
+    }
+
+
+

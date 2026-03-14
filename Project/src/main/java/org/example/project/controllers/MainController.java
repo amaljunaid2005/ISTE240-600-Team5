@@ -2,20 +2,21 @@ package org.example.project.controllers;
 
 import org.example.project.model.Movie;
 import org.example.project.model.Review;
+import org.example.project.model.Ticket;
 import org.example.project.services.MainService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
+
     private MainService mainService;
+
 
     public MainController(MainService mainService) {
         this.mainService = mainService;
+
     }
 
     @GetMapping("/")
@@ -33,11 +34,12 @@ public class MainController {
     public String getMovieForm(){
         return "add-movie";
     }
+
     @GetMapping("/add/success/{entity}")
-        public String success(@PathVariable String entity, Model model){
-            model.addAttribute("entity",entity);
-            return "success";
-        }
+    public String success(@PathVariable String entity, Model model){
+        model.addAttribute("entity",entity);
+        return "success";
+    }
 
     @PostMapping("/movies/add")
     public String addMovie(Model data, Movie movie) {
@@ -46,7 +48,8 @@ public class MainController {
         return "redirect:/add/success/movies";
     }
 
-    // Review Pages
+
+    // Review Handler
     @GetMapping("/reviews")
     public String getReviews(Model model){
         model.addAttribute("movieList", this.mainService.findAllMovies());
@@ -65,5 +68,22 @@ public class MainController {
         return "redirect:/add/success/reviews";
     }
 
+    // Ticket Handler
+    @GetMapping("/tickets")
+    public String getTickets(Model model){
+        model.addAttribute("tickets", mainService.findAllTickets());
+        return "tickets";
+    }
+
+    @GetMapping("/tickets/add")
+    public String addTicketPage(){
+        return "add-ticket";
+    }
+
+    @PostMapping("/tickets/add")
+    public String addTicket(Ticket ticket){
+        mainService.saveTicket(ticket);
+        return "redirect:/add/success/ticket";
+    }
 
 }
