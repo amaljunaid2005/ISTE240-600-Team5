@@ -30,11 +30,11 @@ public class UserProfile {
         this.email = email;
     }
 
-    public double getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(double age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
