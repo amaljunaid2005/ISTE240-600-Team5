@@ -48,23 +48,23 @@ public class MainController {
         return "redirect:/add/success/movies";
     }
 
-
     // Review Handler
     @GetMapping("/reviews")
     public String getReviews(Model model){
-        model.addAttribute("movieList", this.mainService.findAllMovies());
+        model.addAttribute("reviewList", this.mainService.findAllReviews());
         return "reviews";
     }
 
     @GetMapping("/reviews/add")
-    public String getReviewForm(){
-        return "add-reviews";
+    public String getReviewForm(Model model){
+        model.addAttribute("users", mainService.findAllUsers());
+        model.addAttribute("movies", mainService.findAllMovies());
+        return "add-review";
     }
 
     @PostMapping("/reviews/add")
-    public String addReview(Model data, Review review) {
-        this.mainService.saveReview(review);
-        data.addAttribute("reviewList", this.mainService.findAllReviews());
+    public String addReview( @RequestParam int userId,  @RequestParam int movieId, Review review) {
+        this.mainService.saveReview(review, userId, movieId);
         return "redirect:/add/success/reviews";
     }
 

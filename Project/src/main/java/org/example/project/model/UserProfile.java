@@ -3,7 +3,7 @@ package org.example.project.model;
 import org.springframework.stereotype.Component;
 
 public class UserProfile {
-    private int UserID;
+    private int userId;
     private String username;
     private String email;
     private double age;
@@ -12,13 +12,22 @@ public class UserProfile {
     //profile picture//
 
 
+    public UserProfile(int userId, String username, String email, double age, String password, String bio) {
+        userId = userId;
+        this.username = username;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+        this.bio = bio;
+    }
+
     public int getUserID() {
-        return UserID;
+        return userId;
     }
 
 
-    public void setUserID(int userID) {
-        UserID = userID;
+    public void setUserID(int userId) {
+        userId = userId;
     }
 
 

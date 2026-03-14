@@ -1,11 +1,9 @@
 package org.example.project.services;
 
-import org.apache.catalina.User;
 import org.example.project.model.Movie;
 import org.example.project.model.Review;
 import org.example.project.model.UserProfile;
 import org.example.project.model.Ticket;
-import org.example.project.model.UserProfile;
 
 import org.springframework.stereotype.Service;
 
@@ -18,22 +16,23 @@ public class MainService {
     List<Movie> movieList = new ArrayList<Movie>();
     List<UserProfile> userList = new ArrayList<>();
     List<Review> reviewList = new ArrayList<>();
-     List<Ticket> tickets = new ArrayList<>();
+    List<Ticket> tickets = new ArrayList<>();
 
     private int reviewIdCounter = 4;
+    private int movieIdCounter = 3;
 
     public MainService(){
 
         // Movies
-        var movie1= new Movie("Matilda",1996,"Danny DeVito",7,"Mara Wilson","Family"," girl gifted with a keen intellect and psychic powers uses both to get even with her callous family and free her kindly schoolteacher from the tyrannical grip of a sadistic headmistress.");
-        var movie2= new Movie("Midsommar",2019,"Ari Aster",7.1,"Florence Pugh","Horror","A couple travels to Northern Europe to visit a rural hometown's fabled Swedish mid-summer festival. What begins as an idyllic retreat quickly devolves into an increasingly violent and bizarre competition at the hands of a pagan cult.");
+        var movie1= new Movie(1, "Matilda",1996,"Danny DeVito",7,"Mara Wilson","Family"," girl gifted with a keen intellect and psychic powers uses both to get even with her callous family and free her kindly schoolteacher from the tyrannical grip of a sadistic headmistress.");
+        var movie2= new Movie(2, "Midsommar",2019,"Ari Aster",7.1,"Florence Pugh","Horror","A couple travels to Northern Europe to visit a rural hometown's fabled Swedish mid-summer festival. What begins as an idyllic retreat quickly devolves into an increasingly violent and bizarre competition at the hands of a pagan cult.");
 
         this.movieList.add(movie1);
         this.movieList.add(movie2);
 
         // Users
-        var user1 = new UserProfile(1,"John");
-        var user2 = new UserProfile(2,"Anna");
+        var user1 = new UserProfile(1,"John", "jhn1324@gmail.com", 35, "@ghTdk21", "Just a regular movie fan sharing honest opinions on what’s worth watching and what isn’t.");
+        var user2 = new UserProfile(2,"Anna", "ann.mary12@gmail.com", 20, "fnF@234!", "College student and movie enthusiast sharing quick reviews and ratings after every watch.");
 
         this.userList.add(user1);
         this.userList.add(user2);
@@ -63,7 +62,10 @@ public class MainService {
     // Getting and Adding movies
     public List<Movie> findAllMovies(){return this.movieList;}
 
-    public void saveMovie(Movie movie){this.movieList.add(movie);}
+    public void saveMovie(Movie movie){
+        movie.setId(movieIdCounter++);
+        this.movieList.add(movie);
+    }
 
     // Getting and Adding movies
     public List<UserProfile> findAllUsers(){
@@ -72,11 +74,36 @@ public class MainService {
 
     public void saveUser(UserProfile user){this.userList.add(user);}
 
+    // Identifying users and movies by a unique ID
+    public UserProfile findUserById(int id) {
+        for (UserProfile user : userList) {
+            if (user.getUserID() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
+    public Movie findMovieById(int id) {
+        for (Movie movie : movieList) {
+            if (movie.getId() == id) {
+                return movie;
+            }
+        }
+        return null;
+    }
     // Getting and Adding reviews
     public List<Review> findAllReviews(){return this.reviewList;}
 
-    public void saveReview(Review review){
+    public void saveReview(Review review, int userId, int movieId) {
+
+        UserProfile user = findUserById(userId);
+        Movie movie = findMovieById(movieId);
+
+        review.setUserProfile(user);
+        review.setMovie(movie);
+
         review.setId(reviewIdCounter++);
+
         this.reviewList.add(review);
     }
 
