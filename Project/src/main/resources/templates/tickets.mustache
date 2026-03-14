@@ -1,22 +1,32 @@
-<h2>Tickets</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+</head>
+<body>
 
-<table>
-<tr>
-<th>ID</th>
-<th>User</th>
-<th>Movie</th>
-<th>Showtime</th>
-</tr>
+<h2>Ticket Table</h2>
 
-{{#tickets}}
-<tr>
-<td>{{id}}</td>
-<td>{{user.name}}</td>
-<td>{{movie.title}}</td>
-<td>{{showTime}}</td>
-</tr>
-{{/tickets}}
+<table border="1">
+    <tr>
+        <th>Ticket ID</th>
+        <th>User</th>
+        <th>Movie</th>
+        <th>Show Time</th>
+    </tr>
+    {{#tickets}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{movie.movieName}}</td>
+            <td>{{showTime}}</td>
+        </tr>
+    {{/tickets}}
 
 </table>
 
-<a href="/">Home</a>
+<a href="tickets/add">Add another ticket.</a>
+
+</body>
+</html>
