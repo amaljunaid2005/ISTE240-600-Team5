@@ -3,7 +3,6 @@ package org.example.project.controllers;
 import org.example.project.model.Movie;
 import org.example.project.model.Ticket;
 import org.example.project.services.MainService;
-import org.example.project.service.DataService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
     private MainService mainService;
-    private DataService dataService;
 
-    public MainController(MainService mainService, DataService dataService) {
+
+    public MainController(MainService mainService) {
         this.mainService = mainService;
-        this.dataService = dataService;
+
     }
 
     @GetMapping("/")
@@ -51,7 +50,7 @@ public class MainController {
 
     @GetMapping("/tickets")
     public String getTickets(Model model){
-        model.addAttribute("tickets", dataService.getTickets());
+        model.addAttribute("tickets", mainService.findAllTickets());
         return "tickets";
     }
 
@@ -62,7 +61,7 @@ public class MainController {
 
     @PostMapping("/tickets/add")
     public String addTicket(Ticket ticket){
-        dataService.addTicket(ticket);
+        mainService.saveTicket(ticket);
         return "redirect:/add/success/ticket";
     }
 
