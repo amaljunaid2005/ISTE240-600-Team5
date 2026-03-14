@@ -25,8 +25,8 @@ public class MainService {
         this.movieList.add(movie1);
         this.movieList.add(movie2);
 
-        UserProfile user1 = new UserProfile(1,"John");
-        UserProfile user2 = new UserProfile(2,"Anna");
+        UserProfile user1 = new UserProfile(123,"john","john.abraham@gmail.com",20, "movie enthusiast , horror movie enjoyer");
+        UserProfile user2 = new UserProfile(123,"alex","alex.abraham@gmail.com",20, "series enthusiast , romance movie enjoyer");
 
         users.add(user1);
         users.add(user2);
