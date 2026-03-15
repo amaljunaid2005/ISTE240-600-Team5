@@ -31,8 +31,8 @@ public class MainService {
         this.movieList.add(movie2);
 
         // Users
-        var user1 = new UserProfile(123,"john","john.abraham@gmail.com",20, "movie enthusiast , horror movie enjoyer");
-        var user2 = new UserProfile(123,"alex","alex.abraham@gmail.com",20, "series enthusiast , romance movie enjoyer");
+        var user1 = new UserProfile(1,"john","john.abraham@gmail.com",20, "movie enthusiast , horror movie enjoyer");
+        var user2 = new UserProfile(2,"alex","alex.abraham@gmail.com",20, "series enthusiast , romance movie enjoyer");
 
         this.userList.add(user1);
         this.userList.add(user2);
