@@ -2,12 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile form</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h2>User profile</h2>
-<form class="ui form" method="post">
 
+<nav class="navbar">
+    <div class="nav-content">
+        <!-- Clicking the logo returns home -->
+        <a href="/" class="nav-logo">ReelTalk</a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/users">Users</a>
+            <a href="/tickets">Tickets</a>
+        </div>
+    </div>
+</nav>
+
+<div class="header-container">
+<h2>User profile</h2>
+ <div class="subtitle">Add User</div>
+</div>
+
+<div class="content-card">
+<form method="post">
     <div class="field">
         <label>Username</label>
         <input type="text" name="username" placeholder="Username">
@@ -25,7 +47,10 @@
         <input type="text" name="bio" placeholder="Bio">
     </div>
 
-    <button class="ui button" type="submit">Submit</button>
-</form>
+     <button class="btn-pill" type="submit" style="width: 100%;">Submit Movie</button>
+  </form>
+</div>
+<a href="/users" class="btn-pill btn-secondary">Back to Users</a>
+
 </body>
 </html>
