@@ -31,8 +31,8 @@ public class MainService {
         this.movieList.add(movie2);
 
         // Users
-        var user1 = new UserProfile(1,"John", "jhn1324@gmail.com", 35, "@ghTdk21", "Just a regular movie fan sharing honest opinions on what’s worth watching and what isn’t.");
-        var user2 = new UserProfile(2,"Anna", "ann.mary12@gmail.com", 20, "fnF@234!", "College student and movie enthusiast sharing quick reviews and ratings after every watch.");
+        var user1 = new UserProfile(123,"john","john.abraham@gmail.com",20, "movie enthusiast , horror movie enjoyer");
+        var user2 = new UserProfile(123,"alex","alex.abraham@gmail.com",20, "series enthusiast , romance movie enjoyer");
 
         this.userList.add(user1);
         this.userList.add(user2);

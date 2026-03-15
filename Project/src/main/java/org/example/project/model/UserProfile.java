@@ -6,10 +6,18 @@ public class UserProfile {
     private int userId;
     private String username;
     private String email;
-    private double age;
-    private String password;
+    private int age;
     private String bio;
-    //profile picture//
+
+   public UserProfile(int UserID, String username, String email, int age, String bio) {
+       this.UserID = UserID;
+       this.username = username;
+       this.email = email;
+       this.age = age;
+       this.bio = bio;
+       
+   }
+
 
     public UserProfile(){}
     public UserProfile(int userId, String username, String email, double age, String password, String bio) {
@@ -40,11 +48,11 @@ public class UserProfile {
         this.email = email;
     }
 
-    public double getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(double age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -52,9 +60,7 @@ public class UserProfile {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    
 
     public String getBio() {
         return bio;
@@ -64,9 +70,7 @@ public class UserProfile {
         this.bio = bio;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    
 
     public void setUsername(String username) {
         this.username = username;
