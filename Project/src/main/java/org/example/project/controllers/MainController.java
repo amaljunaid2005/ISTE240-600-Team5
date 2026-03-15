@@ -1,9 +1,9 @@
 package org.example.project.controllers;
 
 import org.example.project.model.Movie;
+import org.example.project.model.Review;
 import org.example.project.model.Ticket;
 import org.example.project.services.MainService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +48,27 @@ public class MainController {
         return "redirect:/add/success/movies";
     }
 
+    // Review Handler
+    @GetMapping("/reviews")
+    public String getReviews(Model model){
+        model.addAttribute("reviewList", this.mainService.findAllReviews());
+        return "reviews";
+    }
+
+    @GetMapping("/reviews/add")
+    public String getReviewForm(Model model){
+        model.addAttribute("users", mainService.findAllUsers());
+        model.addAttribute("movies", mainService.findAllMovies());
+        return "add-review";
+    }
+
+    @PostMapping("/reviews/add")
+    public String addReview( @RequestParam int userId,  @RequestParam int movieId, Review review) {
+        this.mainService.saveReview(review, userId, movieId);
+        return "redirect:/add/success/reviews";
+    }
+
+    // Ticket Handler
     @GetMapping("/tickets")
     public String getTickets(Model model){
         model.addAttribute("tickets", mainService.findAllTickets());

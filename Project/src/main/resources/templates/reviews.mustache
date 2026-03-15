@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+<h2>Review Table</h2>
+<table border="1">
+    <tr>
+        <th>Review ID</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>Movie Name</th>
+        <th>Rating (/10)</th>
+        <th>Review Text</th>
+    </tr>
+    <!--Loop in a table-->
+    {{#reviewList}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{reviewDate}}</td>
+            <td>{{userProfile}}</td>
+            <td>{{movie}}</td>
+            <td>{{rating}}</td>
+            <td>{{reviewText}}</td>
+        </tr>
+    {{/reviewList}}
+</table>
+<a href="reviews/add">Add another review.</a>
+</body>
+</html>

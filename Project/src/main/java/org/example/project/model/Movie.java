@@ -6,6 +6,7 @@ package org.example.project.model;
  */
 public class Movie {
 
+    private int id;
     private String movieName;
     private int releaseYear;
     private String director;
@@ -14,8 +15,11 @@ public class Movie {
     private String genre;
     private String description;
 
-    public Movie(String movieName,int releaseYear, String director, double rating, String leadActor, String genre, String description) {
+    public Movie (){};
 
+    public Movie(int id,String movieName,int releaseYear, String director, double rating, String leadActor, String genre, String description) {
+
+        this.id = id;
         this.movieName = movieName;
         this.releaseYear=releaseYear;
         this.director = director;
@@ -23,6 +27,14 @@ public class Movie {
         this.leadActor = leadActor;
         this.genre = genre;
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getReleaseYear() {

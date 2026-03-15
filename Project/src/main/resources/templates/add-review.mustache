@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Review</title>
+</head>
+<body>
+
+<h2>Add Review</h2>
+
+<form class="ui form" method="post" action="/reviews/add">
+
+    <div class="field">
+        <label>Review Text</label>
+        <input type="text" name="reviewText" placeholder="Write your review">
+    </div>
+
+    <div class="field">
+        <label>Rating (1–10)</label>
+        <input type="number" name="rating" min="1" max="10" placeholder="Rating">
+    </div>
+
+    <div class="field">
+        <label>User</label>
+        <select name="userId">
+            {{#users}}
+                <option value="{{userId}}">{{username}}</option>
+            {{/users}}
+        </select>
+    </div>
+
+    <div class="field">
+        <label>Movie</label>
+        <select name="movieId">
+            {{#movies}}
+                <option value="{{id}}">{{movieName}}</option>
+            {{/movies}}
+        </select>
+    </div>
+
+    <button class="ui button" type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>

@@ -1,10 +1,6 @@
 package org.example.project.model;
 
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
-
-
 
 /*
  * Represents a review written by a user for a movie.
@@ -14,14 +10,20 @@ public class Review {
 
     private int id;
     private String reviewText;
-    private int rating; // Rating given by the user (1–5)
+    private int rating; // Rating given by the user (1–10)
     private UserProfile userProfile;
     private Movie movie;
     private LocalDate reviewDate;
 
-    public Review(Movie movie, UserProfile userProfile) {
-        this.movie = movie;
+    public Review(){}
+    
+    public Review(int id, String reviewText, int rating, UserProfile userProfile, Movie movie) {
+        this.id = id;
+        this.reviewText = reviewText;
+        this.rating = rating;
         this.userProfile = userProfile;
+        this.movie = movie;
+        this.reviewDate = LocalDate.now(); // auto-set today
     }
 
     public int getId() {
@@ -45,31 +47,27 @@ public class Review {
     }
 
     public void setRating(int rating) {
-        if (rating < 1 || rating > 5) {
-            throw new IllegalArgumentException("Rating must be between 1 and 5");
+        if (rating < 1 || rating > 10) {
+            throw new IllegalArgumentException("Rating must be between 1 and 10");
         }
         this.rating = rating;
     }
 
-    public int getUserProfile() {
-        return userProfile.getUserID();
+    public UserProfile getUserProfile() {
+        return userProfile;
     }
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 
-
+    public Movie getMovie() {
+        return movie;
+    }
 
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
-
-    public int getUserId(){
-        return userProfile.getUserID();
-    }
-
-
 
     public LocalDate getReviewDate() {
         return reviewDate;
