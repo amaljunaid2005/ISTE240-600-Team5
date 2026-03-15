@@ -6,16 +6,16 @@ public class UserProfile {
     private int userId;
     private String username;
     private String email;
-    private double age;
+    private int age;
     private String bio;
 
-   public UserProfile(int UserID, String username, String email, double age, String bio) {
+   public UserProfile(int UserID, String username, String email, int age, String bio) {
        this.userId = UserID;
        this.username = username;
        this.email = email;
        this.age = age;
        this.bio = bio;
-       
+
    }
 
     public int getUserID() {

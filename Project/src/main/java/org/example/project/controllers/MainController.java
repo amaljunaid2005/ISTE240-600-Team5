@@ -19,7 +19,13 @@ public class MainController {
         this.mainService = mainService;
 
     }
-
+    // success page handler
+    @GetMapping("/add/success/{entity}")
+    public String success(@PathVariable String entity, Model model){
+        model.addAttribute("entity",entity);
+        return "success";
+    }
+    //movie handler
     @GetMapping("/movies")
     public String getMovies(Model model){
         model.addAttribute("movieList", this.mainService.findAllMovies());
@@ -31,11 +37,7 @@ public class MainController {
         return "add-movie";
     }
 
-    @GetMapping("/add/success/{entity}")
-    public String success(@PathVariable String entity, Model model){
-        model.addAttribute("entity",entity);
-        return "success";
-    }
+
 
     @PostMapping("/movies/add")
     public String addMovie(Model data, Movie movie) {
@@ -82,12 +84,11 @@ public class MainController {
         return "redirect:/add/success/ticket";
     }
 
-    //user handler
     // User Handler
     @GetMapping("/users")
     public String getUsers(Model model){
         model.addAttribute("users", this.mainService.findAllUsers());
-        return "users";
+        return "user";
     }
 
     @GetMapping("/users/add")

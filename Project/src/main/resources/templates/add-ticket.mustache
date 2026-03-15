@@ -15,15 +15,25 @@
     <input type="number" name="id" placeholder="Ticket ID">
   </div>
 
-  <div class="field">
-    <label>User Name</label>
-    <input type="text" name="user.name" placeholder="User Name">
-  </div>
+    <div class="field">
+        <label>User</label>
+        <select name="userId" required>
+            <option value="" disabled selected>Select a user...</option>
+            {{#users}}
+                <option value="{{userId}}">{{username}}</option>
+            {{/users}}
+        </select>
+    </div>
 
-  <div class="field">
-    <label>Movie Name</label>
-    <input type="text" name="movie.movieName" placeholder="Movie Name">
-  </div>
+    <div class="field">
+        <label>Movie</label>
+        <select name="movieId" required>
+            <option value="" disabled selected>Select a movie...</option>
+            {{#movies}}
+                <option value="{{id}}">{{movieName}}</option>
+            {{/movies}}
+        </select>
+    </div>
 
   <div class="field">
     <label>Show Time</label>
