@@ -1,5 +1,51 @@
-# ISTE240-600-Team5
-Amal Junaid - 751008715, Mehrin Fathima - 418006818 , Madheeha sameen - 764002947, Grishma Bhandari - 761001853
+# Movie Review Web Application
+### ISTE240 – Web & Mobile II  
+### Team 5 ###
 
-project purpose:
-The goal of this project will focus on creating a movie review application which includes a database of English movies released in theatres last year and their general ratings. It would allow for users to post reviews of movies they have seen and give in their own ratings, either anonymously or through creating a profile.
+## Team Members
+- Amal Junaid – 751008715
+- Mehrin Fathima – 418006818
+- Madheeha Sameen – 764002947
+- Grishma Bhandari – 761001853
+
+## Project Purpose
+The goal of this project is to develop a movie review web application that maintains a database of English movies released in theaters last year along with their ratings.
+
+## Features
+- View and add movies
+- Create and view user profiles
+- Submit and view movie reviews
+- Rate movies
+- Book movie tickets
+- View ticket bookings
+
+## Technologies Used
+Frontend:
+- HTML
+- CSS
+- Bootstrap
+- Mustache Templates
+
+Backend:
+- Java
+- Spring Framework
+
+## Project Scope
+The project focuses on managing movie information and allowing users to interact with the movie database by posting reviews, ratings, and ticket bookings.
+
+## Project Structure
+```
+Project
+├── src/main/java/org/example/project
+│   ├── controllers    # Handles HTTP requests
+│   ├── model          # Application data models (Movie, Review, UserProfile, Ticket)
+│   └── services       # Business logic and data management
+│
+└── src/main/resources
+    ├── static         # Static files (CSS, index page)
+    │   └── css
+    │
+    └── templates      # Mustache templates used for rendering views
+```    
+## Documentation
+For more detailed information about the project design, scope, and implementation, please refer to the **Project Report** included in this repository.
