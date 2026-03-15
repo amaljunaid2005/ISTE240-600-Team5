@@ -9,6 +9,19 @@
 </head>
 <body>
 
+<nav class="navbar">
+    <div class="nav-content">
+        <!-- Clicking the logo returns home -->
+        <a href="/" class="nav-logo">ReelTalk</a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/reviews">Reviews</a>
+        </div>
+    </div>
+</nav>
+
 <div class="header-container">
     <h2>Write a Review</h2>
     <div class="subtitle">Share your cinematic thoughts</div>
@@ -30,6 +43,7 @@
         <div class="field">
             <label>User</label>
             <select name="userId" required>
+                <option value="" disabled selected>Select a user...</option>
                 {{#users}}
                     <option value="{{userId}}">{{username}}</option>
                 {{/users}}
