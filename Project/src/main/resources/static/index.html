@@ -2,10 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Neon | Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <p>Welcome to the movie review web application!</p>
-    <p>The goal of this project will focus on creating a movie review application which includes a database of English movies released in theatres last year and their general ratings. It would allow for users to post reviews of movies they have seen and give in their own ratings, either anonymously or through creating a profile.</p>
+
+<nav class="navbar">
+    <div class="nav-content">
+        <!-- Clicking the logo returns home -->
+        <a href="/" class="nav-logo">ReelTalk</a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/reviews">Reviews</a>
+        </div>
+    </div>
+</nav>
+
+<div class="header-container">
+    <h2 style="font-size: 1.6rem">Welcome to the movie review web application!</h2>
+    <div class="subtitle">The goal of this project will focus on creating a movie review application which includes a database of English movies released in theatres last year and their general ratings. It would allow for users to post reviews of movies they have seen and give in their own ratings, either anonymously or through creating a profile.</div>
+</div>
+
+<!-- The Grid Layout -->
+<div class="main-dashboard">
+
+    <!-- Link 1 -->
+    <a href="/reviews" class="nav-card">
+        <div class="icon-placeholder">📽️</div>
+        <h3>View Reviews</h3>
+        <p>Read what the community is saying about the latest hits.</p>
+    </a>
+
+    <!-- Link 2 -->
+    <a href="/reviews/add" class="nav-card">
+        <div class="icon-placeholder">✍️</div>
+        <h3>Add Review</h3>
+        <p>Share your personal thoughts and rate your last watch.</p>
+    </a>
+
+</div>
+
+<div style="margin-top: 4rem; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 1px;">
+    © 2024 MIDNIGHT NEON PROJECT
+</div>
+
 </body>
 </html>

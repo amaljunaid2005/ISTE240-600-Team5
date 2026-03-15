@@ -19,11 +19,6 @@ public class MainController {
 
     }
 
-    @GetMapping("/")
-    public String getHome(){
-        return "index";
-    }
-
     @GetMapping("/movies")
     public String getMovies(Model model){
         model.addAttribute("movieList", this.mainService.findAllMovies());
