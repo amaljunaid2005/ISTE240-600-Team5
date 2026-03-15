@@ -2,35 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h2>Movie Table</h2>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Movie Name</th>
-        <th>Release Year</th>
-        <th>Director</th>
-        <th>IMDB Rating (/10)</th>
-        <th>Lead Actor</th>
-        <th>Genre</th>
-        <th>Description</th>
-    </tr>
-    <!--Loop in a table-->
-    {{#movieList}}
+<nav class="navbar">
+    <div class="nav-content">
+        <!-- Clicking the logo returns home -->
+        <a href="/" class="nav-logo">ReelTalk</a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/users">Users</a>
+            <a href="/tickets">Tickets</a>
+        </div>
+    </div>
+</nav>
+<div class="header-container">
+    <h2>Movies</h2>
+    <div class="subtitle">List of Movies</div>
+</div>
+
+<div class="content-card table-container">
+    <table>
         <tr>
-            <td>{{id}}</td>
-            <td>{{movieName}}</td>
-            <td>{{releaseYear}}</td>
-            <td>{{director}}</td>
-            <td>{{rating}}</td>
-            <td>{{leadActor}}</td>
-            <td>{{genre}}</td>
-            <td>{{description}}</td>
+            <th>ID</th>
+            <th>Movie Name</th>
+            <th>Release Year</th>
+            <th>Director</th>
+            <th>IMDB Rating (/10)</th>
+            <th>Lead Actor</th>
+            <th>Genre</th>
+            <th>Description</th>
         </tr>
-    {{/movieList}}
-</table>
-<a href="movies/add">Add another movie.</a>
+        <!--Loop in a table-->
+        {{#movieList}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{movieName}}</td>
+                <td>{{releaseYear}}</td>
+                <td>{{director}}</td>
+                <td>{{rating}}</td>
+                <td>{{leadActor}}</td>
+                <td>{{genre}}</td>
+                <td>{{description}}</td>
+            </tr>
+        {{/movieList}}
+    </table>
+</div>
+<a href="/movies/add" class="btn-pill" style="margin-top: 2rem;">Add New Movie</a>
 </body>
 </html>
