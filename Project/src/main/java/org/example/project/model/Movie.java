@@ -45,7 +45,33 @@ public class Movie {
         return description;
     }
 
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
 
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setLeadActor(String leadActor) {
+        this.leadActor = leadActor;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getGenre() {
         return genre;

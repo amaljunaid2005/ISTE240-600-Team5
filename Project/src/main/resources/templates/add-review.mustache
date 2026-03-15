@@ -2,45 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Review</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Review | Midnight Neon</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<h2>Add Review</h2>
+<div class="header-container">
+    <h2>Write a Review</h2>
+    <div class="subtitle">Share your cinematic thoughts</div>
+</div>
 
-<form class="ui form" method="post" action="/reviews/add">
+<div class="content-card">
+    <form method="post" action="/reviews/add">
 
-    <div class="field">
-        <label>Review Text</label>
-        <input type="text" name="reviewText" placeholder="Write your review">
-    </div>
+        <div class="field">
+            <label>Movie</label>
+            <select name="movieId" required>
+                <option value="" disabled selected>Select a movie...</option>
+                {{#movies}}
+                    <option value="{{id}}">{{movieName}}</option>
+                {{/movies}}
+            </select>
+        </div>
 
-    <div class="field">
-        <label>Rating (1–10)</label>
-        <input type="number" name="rating" min="1" max="10" placeholder="Rating">
-    </div>
+        <div class="field">
+            <label>User</label>
+            <select name="userId" required>
+                {{#users}}
+                    <option value="{{userId}}">{{username}}</option>
+                {{/users}}
+            </select>
+        </div>
 
-    <div class="field">
-        <label>User</label>
-        <select name="userId">
-            {{#users}}
-                <option value="{{userId}}">{{username}}</option>
-            {{/users}}
-        </select>
-    </div>
+        <div class="field">
+            <label>Rating (1–10)</label>
+            <input type="number" name="rating" min="1" max="10" placeholder="Give it a score" required>
+        </div>
 
-    <div class="field">
-        <label>Movie</label>
-        <select name="movieId">
-            {{#movies}}
-                <option value="{{id}}">{{movieName}}</option>
-            {{/movies}}
-        </select>
-    </div>
+        <div class="field">
+            <label>Review Text</label>
+            <textarea name="reviewText" rows="4" placeholder="What did you think of the film?" required></textarea>
+        </div>
 
-    <button class="ui button" type="submit">Submit</button>
+        <button class="btn-pill" type="submit" style="width: 100%;">Submit Review</button>
+    </form>
+</div>
 
-</form>
+<a href="/reviews" class="btn-pill btn-secondary">Back to Reviews</a>
 
 </body>
 </html>

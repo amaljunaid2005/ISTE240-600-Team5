@@ -2,31 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reviews</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews | Midnight Neon</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h2>Review Table</h2>
-<table border="1">
-    <tr>
-        <th>Review ID</th>
-        <th>Date</th>
-        <th>User</th>
-        <th>Movie Name</th>
-        <th>Rating (/10)</th>
-        <th>Review Text</th>
-    </tr>
-    <!--Loop in a table-->
-    {{#reviewList}}
+
+<div class="header-container">
+    <h2>User Reviews</h2>
+    <div class="subtitle">Movie Reviews & Ratings</div>
+</div>
+
+<div class="content-card table-container">
+    <table>
+        <thead>
         <tr>
-            <td>{{id}}</td>
-            <td>{{reviewDate}}</td>
-            <td>{{userProfile.username}}</td>
-            <td>{{movie.movieName}}</td>
-            <td>{{rating}}</td>
-            <td>{{reviewText}}</td>
+            <th>Date</th>
+            <th>User</th>
+            <th>Movie</th>
+            <th>Rating</th>
+            <th>Review</th>
         </tr>
-    {{/reviewList}}
-</table>
-<a href="reviews/add">Add another review.</a>
+        </thead>
+        <tbody>
+        {{#reviewList}}
+            <tr>
+                <td>{{reviewDate}}</td>
+                <td style="color: white; font-weight: 600;">{{userProfile.username}}</td>
+                <td style="color: white; font-weight: 600;">{{movie.movieName}}</td>
+                <td><span class="rating-badge">{{rating}}/10</span></td>
+                <td>{{reviewText}}</td>
+            </tr>
+        {{/reviewList}}
+        </tbody>
+    </table>
+</div>
+
+<a href="/reviews/add" class="btn-pill" style="margin-top: 2rem;">Add New Review</a>
+
 </body>
 </html>
