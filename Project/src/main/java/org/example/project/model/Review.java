@@ -13,17 +13,17 @@ public class Review {
     private int rating; // Rating given by the user (1–10)
     private UserProfile userProfile;
     private Movie movie;
-    private LocalDate reviewDate;
+    private LocalDate reviewDate = LocalDate.now(); // auto-set today
 
-    public Review(){}
-    
+    public Review(){
+    }
+
     public Review(int id, String reviewText, int rating, UserProfile userProfile, Movie movie) {
         this.id = id;
         this.reviewText = reviewText;
         this.rating = rating;
         this.userProfile = userProfile;
         this.movie = movie;
-        this.reviewDate = LocalDate.now(); // auto-set today
     }
 
     public int getId() {

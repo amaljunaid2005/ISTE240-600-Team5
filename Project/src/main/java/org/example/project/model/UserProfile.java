@@ -11,7 +11,7 @@ public class UserProfile {
     private String bio;
     //profile picture//
 
-
+    public UserProfile(){}
     public UserProfile(int userId, String username, String email, double age, String password, String bio) {
         userId = userId;
         this.username = username;
