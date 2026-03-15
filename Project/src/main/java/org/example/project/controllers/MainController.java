@@ -81,4 +81,23 @@ public class MainController {
         return "redirect:/add/success/ticket";
     }
 
+    //user handler
+    // User Handler
+    @GetMapping("/users")
+    public String getUsers(Model model){
+        model.addAttribute("users", this.mainService.findAllUsers());
+        return "users";
+    }
+
+    @GetMapping("/users/add")
+    public String getUserForm(){
+        return "add-user";
+    }
+
+    @PostMapping("/users/add")
+    public String addUser(UserProfile user){
+        this.mainService.saveUser(user);
+        return "redirect:/add/success/users";
+    }
+
 }
