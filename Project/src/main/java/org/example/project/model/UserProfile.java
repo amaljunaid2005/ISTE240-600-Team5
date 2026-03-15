@@ -9,6 +9,7 @@ public class UserProfile {
     private int age;
     private String bio;
 
+    public UserProfile() {}
    public UserProfile(int UserID, String username, String email, int age, String bio) {
        this.userId = UserID;
        this.username = username;
@@ -24,7 +25,7 @@ public class UserProfile {
 
 
     public void setUserID(int userId) {
-        userId = userId;
+        this.userId = userId;
     }
 
 

@@ -15,20 +15,20 @@
         <th>Age</th>
         <th>Bio</th>
     </tr>
-    {{#user}}
+    {{#users}}
         <tr>
-            <td>{{User ID}}</td>
-            <td>{{Username}}</td>
-            <td>{{Email}}</td>
-            <td>{{Age}}</td>
-            <td>{{Bio}}</td>
+            <td>{{userId}}</td>
+            <td>{{username}}</td>
+            <td>{{email}}</td>
+            <td>{{age}}</td>
+            <td>{{bio}}</td>
 
         </tr>
-    {{/user}}
+    {{/users}}
 
 </table>
 
-<a href="user/add">Add another user.</a>
+<a href="users/add">Add another user.</a>
 
 </body>
 </html>

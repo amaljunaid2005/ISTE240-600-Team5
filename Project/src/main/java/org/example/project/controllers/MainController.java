@@ -74,14 +74,16 @@ public class MainController {
     }
 
     @GetMapping("/tickets/add")
-    public String addTicketPage(){
+    public String addTicketPage(Model model){
+        model.addAttribute("users", mainService.findAllUsers());
+        model.addAttribute("movies", mainService.findAllMovies());
         return "add-ticket";
     }
 
     @PostMapping("/tickets/add")
-    public String addTicket(Ticket ticket){
-        mainService.saveTicket(ticket);
-        return "redirect:/add/success/ticket";
+    public String addTicket(@RequestParam int userId,@RequestParam int movieId, Ticket ticket){
+        mainService.saveTicket(ticket,userId,movieId);
+        return "redirect:/add/success/tickets";
     }
 
     // User Handler

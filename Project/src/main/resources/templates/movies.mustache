@@ -8,6 +8,7 @@
 <h2>Movie Table</h2>
 <table border="1">
     <tr>
+        <th>ID</th>
         <th>Movie Name</th>
         <th>Release Year</th>
         <th>Director</th>
@@ -19,6 +20,7 @@
     <!--Loop in a table-->
     {{#movieList}}
         <tr>
+            <td>{{id}}</td>
             <td>{{movieName}}</td>
             <td>{{releaseYear}}</td>
             <td>{{director}}</td>

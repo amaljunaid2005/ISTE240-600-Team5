@@ -20,6 +20,8 @@ public class MainService {
 
     private int reviewIdCounter = 4;
     private int movieIdCounter = 3;
+    private int userIdCounter=3;
+    private int ticketIdCounter=4;
 
     public MainService(){
 
@@ -72,7 +74,9 @@ public class MainService {
         return this.userList;
     }
 
-    public void saveUser(UserProfile user){this.userList.add(user);}
+    public void saveUser(UserProfile user){
+        user.setUserID(userIdCounter++);
+        this.userList.add(user);}
 
     // Identifying users and movies by a unique ID
     public UserProfile findUserById(int id) {
@@ -112,7 +116,12 @@ public class MainService {
         return this.tickets;
     }
 
-    public void saveTicket(Ticket ticket){
+    public void saveTicket(Ticket ticket, int userId, int movieId){
+        UserProfile user = findUserById(userId);
+        Movie movie = findMovieById(movieId);
+        ticket.setUser(user);
+        ticket.setMovie(movie);
+        ticket.setId(ticketIdCounter++);
         this.tickets.add(ticket);
     }
 
