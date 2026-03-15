@@ -1,0 +1,149 @@
+/* src/main/resources/static/css/style.css */
+
+:root {
+    --bg-dark: #0B0E14;
+    --bg-card: #161B22;
+    --primary-neon: #BF5AF2;      /* Purple */
+    --accent-neon: #5AC8FA;       /* Cyan */
+    --text-main: #FFFFFF;
+    --text-muted: #94A3B8;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header Styles */
+.header-container {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+h2 {
+    color: var(--primary-neon);
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 0 0 15px rgba(191, 90, 242, 0.4);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Common Container for Table and Form */
+.content-card {
+    width: 100%;
+    max-width: 600px; /* Narrower for forms */
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table-container {
+    max-width: 1000px; /* Wider for tables */
+}
+
+/* Table Specifics */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: var(--primary-neon);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    padding: 1.2rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+td {
+    padding: 1.2rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.rating-badge {
+    color: var(--accent-neon);
+    font-weight: 800;
+    background: rgba(90, 200, 250, 0.1);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+/* Form Styles */
+.field {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: var(--primary-neon);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    letter-spacing: 1px;
+}
+
+input, select, textarea {
+    background: #0B0E14;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-neon);
+    box-shadow: 0 0 8px rgba(191, 90, 242, 0.2);
+}
+
+/* Pill Buttons */
+.btn-pill {
+    display: inline-block;
+    text-decoration: none;
+    padding: 1rem 2.5rem;
+    background: var(--primary-neon);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(191, 90, 242, 0.3);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-pill:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(191, 90, 242, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-muted);
+    margin-top: 1rem;
+}
