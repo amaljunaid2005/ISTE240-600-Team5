@@ -1,18 +1,34 @@
 package org.example.project.model;
 
+import jakarta.persistence.*;
+
 /*
  * Represents a Movie that can be reviewed or added to a favorites list
  * Includes the name of the movie, its genre, director and lead actor as well as a short description of its premise.
  */
+@Entity
+@Table(name="movies")
 public class Movie {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name="movie_name", length = 100,nullable = false)
     private String movieName;
+
+    @Column(name="year_of_release",length = 50, nullable = false)
     private int releaseYear;
+
+    @Column(name="director",length = 50,nullable = false)
     private String director;
+
+    @Column(name ="IMDB_rating",length = 5,nullable = false)
     private double rating;
+    @Column(name="lead_actor",length = 100,nullable = false)
     private String leadActor;
+    @Column(name="genre",length = 50,nullable = false)
     private String genre;
+    @Column(name="description", nullable = false)
     private String description;
 
     public Movie (){};
