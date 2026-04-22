@@ -33,9 +33,7 @@ public class Movie {
 
     public Movie (){};
 
-    public Movie(int id,String movieName,int releaseYear, String director, double rating, String leadActor, String genre, String description) {
-
-        this.id = id;
+    public Movie(String movieName,int releaseYear, String director, double rating, String leadActor, String genre, String description) {
         this.movieName = movieName;
         this.releaseYear=releaseYear;
         this.director = director;
@@ -47,10 +45,6 @@ public class Movie {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getReleaseYear() {
