@@ -2,6 +2,9 @@ package org.example.project.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Represents a Movie that can be reviewed or added to a favorites list
  * Includes the name of the movie, its genre, director and lead actor as well as a short description of its premise.
@@ -30,6 +33,12 @@ public class Movie {
     private String genre;
     @Column(name="description", nullable = false)
     private String description;
+
+//    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.LAZY)
+//    private List<Review> reviews = new ArrayList<Review>();
+//
+//    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.LAZY)
+//    private List<Ticket> tickets = new ArrayList<Ticket>();
 
     public Movie (){};
 
