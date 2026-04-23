@@ -27,5 +27,16 @@ public class MovieService {
         return movieRepo.findById(id);
     }
 
-
+    public void updateMovie(int id, Movie movieToUpdate){
+        if (movieRepo.existsById(id))
+        {movieRepo.changeMovieName(id,movieToUpdate.getMovieName());
+            movieRepo.changeDescription(id,movieToUpdate.getDescription());
+            movieRepo.changeDirector(id,movieToUpdate.getDirector());
+            movieRepo.changeGenre(id,movieToUpdate.getGenre());
+            movieRepo.changeReleaseYear(id,movieToUpdate.getReleaseYear());
+            movieRepo.changeLeadActor(id,movieToUpdate.getLeadActor());}
+        else{
+            throw new RuntimeException("This movie does not exist in database");
+        }
+    }
 }

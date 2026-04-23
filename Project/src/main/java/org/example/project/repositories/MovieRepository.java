@@ -24,7 +24,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     @Modifying
     @Query("update Movie m set m.releaseYear=:releaseYear where m.id=:id")
-    int changeReleaseYear(@Param("id") int id, @Param("releaseYear") String releaseYear);
+    int changeReleaseYear(@Param("id") int id, @Param("releaseYear") int releaseYear);
 
     @Modifying
     @Query("update Movie m set m.director=:director where m.id=:id")
@@ -44,5 +44,8 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     //Delete methods
     void deleteById(long id);
+
+    //to check if a record exists
+    boolean existsById(int id);
 
 }
