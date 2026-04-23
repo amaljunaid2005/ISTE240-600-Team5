@@ -10,13 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ticket")
+@RequestMapping("/api/tickets")
+@CrossOrigin(origins= "*")
 public class TicketController {
 
     @Autowired
     private TicketService ticketService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Ticket> getAllTickets() {
         return ticketService.getAllTickets();
     }
@@ -24,55 +25,46 @@ public class TicketController {
     @GetMapping("/{id}")
     public ResponseEntity<Ticket> getTicketById(@PathVariable int id) {
         Optional<Ticket> ticket = ticketService.getTicketById(id);
-
-        if(ticket.isPresent()){
-            return ResponseEntity.ok(ticket.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ticket.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
-
     @GetMapping("/search")
-    public List<Ticket> searchByUser(@RequestParam int userID) {
-        return ticketService.getTicketsByUser(userID);
+    public List<Ticket> searchByUser(@RequestParam int userId) {
+        return ticketService.getTicketsByUser(userId);
     }
 
     @GetMapping("/status")
-    public List<Ticket> getByStatus(@RequestParam String status) {
-        return ticketService.getTicketsByStatus(status);
+    public List<Ticket> getByStatus(@RequestParam String value) {
+        return ticketService.getTicketsByStatus(value);
     }
 
-    @GetMapping("/movie/{id}")
+    @GetMapping("/movie/{movieId}")
     public List<Ticket> getByMovie(@PathVariable int movieId) {
         return ticketService.getTicketsByMovie(movieId);
     }
 
     @PostMapping
-    public Ticket addTicket(@RequestBody Ticket ticket) {
+    public Ticket bookTicket(@RequestBody Ticket ticket) {
         return ticketService.bookTicket(ticket);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Ticket> updateTicket(@PathVariable int id, @RequestBody Ticket ticket) {
-        Optional<Ticket> t = ticketService.getTicketById(id);
-
-        if(t.isPresent()){
-            Ticket updated = ticketService.updateTicket(id, ticket);
-            return ResponseEntity.ok(updated);
-        }
-
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteTicket(@PathVariable int id) {
-        Optional<Ticket> ticket = ticketService.getTicketById(id);
-
-        if(ticket.isEmpty()){
+     @PutMapping("/{id}")
+    public ResponseEntity<Ticket> updateTicket(@PathVariable int id,
+                                               @RequestBody Ticket ticket) {
+        Optional<Ticket> existing = ticketService.getTicketById(id);
+        if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(ticketService.updateTicket(id, ticket));
+    }
 
+      @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable int id) {
+        Optional<Ticket> existing = ticketService.getTicketById(id);
+        if (existing.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         ticketService.deleteTicket(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
+ 
