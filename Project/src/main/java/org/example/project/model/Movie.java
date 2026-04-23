@@ -14,7 +14,7 @@ import java.util.List;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="movie_name", length = 100,nullable = false)
     private String movieName;
@@ -52,7 +52,7 @@ public class Movie {
         this.description = description;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
