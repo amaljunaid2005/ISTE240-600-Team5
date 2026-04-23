@@ -1,6 +1,7 @@
 package org.example.project.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -34,6 +35,8 @@ public class Ticket {
         this.movieId = movieId;
         this.showTime = showTime;
         this.seat = seat;
+        this.status = showTime.toLocalDate().isBefore(LocalDate.now())
+                ? "previously_watched" : "going_to_watch";
     }
 
     public int getId() { return id; }
@@ -48,6 +51,8 @@ public class Ticket {
     public LocalDateTime getShowTime() { return showTime; }
     public void setShowTime(LocalDateTime showTime) {
         this.showTime = showTime;
+        this.status = showTime.toLocalDate().isBefore(LocalDate.now())
+                ? "previously_watched" : "going_to_watch";
     }
 
     public String getSeat() { return seat; }
