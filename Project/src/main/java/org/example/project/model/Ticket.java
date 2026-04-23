@@ -1,8 +1,15 @@
 package org.example.project.model;
 
+
+@Entity
+@Table(name="tickets")
+    
 public class Ticket {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private UserProfile user;
     private Movie movie;
     private String showTime;
