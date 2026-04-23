@@ -25,8 +25,6 @@ public class Movie {
     @Column(name="director",length = 50,nullable = false)
     private String director;
 
-    @Column(name ="IMDB_rating",length = 5,nullable = false)
-    private double rating;
     @Column(name="lead_actor",length = 100,nullable = false)
     private String leadActor;
     @Column(name="genre",length = 50,nullable = false)
@@ -42,11 +40,10 @@ public class Movie {
 
     public Movie (){};
 
-    public Movie(String movieName,int releaseYear, String director, double rating, String leadActor, String genre, String description) {
+    public Movie(String movieName,int releaseYear, String director, String leadActor, String genre, String description) {
         this.movieName = movieName;
         this.releaseYear=releaseYear;
         this.director = director;
-        this.rating = rating;
         this.leadActor = leadActor;
         this.genre = genre;
         this.description = description;
@@ -76,10 +73,6 @@ public class Movie {
         this.director = director;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public void setLeadActor(String leadActor) {
         this.leadActor = leadActor;
     }
@@ -107,12 +100,6 @@ public class Movie {
 
     public String getDirector() {
         return director;
-    }
-
-
-
-    public double getRating() {
-        return rating;
     }
 
 

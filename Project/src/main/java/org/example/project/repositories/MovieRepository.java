@@ -31,10 +31,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     int changeDirector(@Param("id") int id, @Param("director") String director);
 
     @Modifying
-    @Query("update Movie m set m.rating=:rating where m.id=:id")
-    int changeRating(@Param("id") int id, @Param("rating") double rating);
-
-    @Modifying
     @Query("update Movie m set m.leadActor=:leadActor where m.id=:id")
     int changeLeadActor(@Param("id") int id, @Param("leadActor") String leadActor);
 
