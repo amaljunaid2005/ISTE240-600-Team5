@@ -44,7 +44,6 @@ public class UserProfile {
 
 }
 
-
     public int getUserID() {
         return userId;
     }
@@ -55,8 +54,6 @@ public class UserProfile {
     public void setUserID(int userId) {
         this.userId = userId;
     }
-
-
 
 
 
@@ -89,8 +86,6 @@ public class UserProfile {
     public void setUsername(String username) {
         this.username = username;
     }
-
-
 
 
 
