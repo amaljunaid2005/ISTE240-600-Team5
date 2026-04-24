@@ -30,16 +30,15 @@ public class MovieService {
     public List<Movie> getMovieByName(String name){
         return movieRepo.findByMovieName(name);
     }
-    public void updateMovie(int id, Movie movieToUpdate){
-        if (movieRepo.existsById(id))
-        {movieRepo.changeMovieName(id,movieToUpdate.getMovieName());
-            movieRepo.changeDescription(id,movieToUpdate.getDescription());
-            movieRepo.changeDirector(id,movieToUpdate.getDirector());
-            movieRepo.changeGenre(id,movieToUpdate.getGenre());
-            movieRepo.changeReleaseYear(id,movieToUpdate.getReleaseYear());
-            movieRepo.changeLeadActor(id,movieToUpdate.getLeadActor());}
-        else{
-            throw new RuntimeException("This movie does not exist in database");
-        }
+    public Movie updateMovie(int id, Movie movieToUpdate){
+        Movie movie = movieRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+        movie.setMovieName(movieToUpdate.getMovieName());
+        movie.setDescription(movieToUpdate.getDescription());
+        movie.setDirector(movieToUpdate.getDirector());
+        movie.setGenre(movieToUpdate.getGenre());
+        movie.setLeadActor(movieToUpdate.getLeadActor());
+        movie.setReleaseYear(movieToUpdate.getReleaseYear());
+        return movieRepo.save(movieToUpdate);
     }
 }

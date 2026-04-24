@@ -31,9 +31,25 @@ public class MovieController {
             return new ResponseEntity<Movie>((HttpHeaders) null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    //searching for movie by name
     @GetMapping("api/movies/search")
     public ResponseEntity<List<Movie>> searchMovies(@RequestParam String name){
-        return new ResponseEntity<>(movieService.getMovieByName(name), HttpStatus.OK);
+        List<Movie> search_result=movieService.getMovieByName(name);
+        return new ResponseEntity<>(search_result, HttpStatus.OK);
     }
+
+    //creating a new movie
+    @PostMapping("/api/movies")
+    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie){
+        try{
+            Movie movieToSave=movieService.saveMovie(movie);
+            return new ResponseEntity<>(movieToSave, HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>((HttpHeaders) null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }
