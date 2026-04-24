@@ -50,6 +50,16 @@ public class MovieController {
         }
     }
 
+    //updating an existing movie
+    @PutMapping("/api/movies/{id}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable int id, @RequestBody Movie movie){
+        try{
+            return new ResponseEntity<>(movieService.updateMovie(id,movie), HttpStatus.OK);
+        }
+        catch(RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }
