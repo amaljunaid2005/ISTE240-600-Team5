@@ -8,7 +8,7 @@
 </head>
 <body>
 <!-- Search -->
-<input type="text" id="searchInput" class="form-control mb-3" placeholder="Search by title">
+<input type="text" id="searchInput" class="form-control mb-3" placeholder="Search by movie name">
 
 <!-- Add Button -->
 <button class="btn btn-primary mb-3" id="addBtn">Add New Movie</button>
@@ -44,6 +44,8 @@
 </div>
 <script>
     const API_URL = "http://localhost:8080/api/movies";
+
+    //function for loading rows into table
     function loadMovies(){
         $.get(API_URL,function(data){
             let records="";
@@ -67,6 +69,20 @@
             $("#movieTable").html(rows);
         });
     }
+
+    // Deleting a record
+    $(document).on("click", ".deleteBtn", function() {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: `${API_URL}/${id}`,
+            type: "DELETE",
+            success: function() {
+                loadMovies();
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
