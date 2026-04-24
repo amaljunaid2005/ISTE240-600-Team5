@@ -27,6 +27,9 @@ public class MovieService {
         return movieRepo.findById(id);
     }
 
+    public List<Movie> getMovieByName(String name){
+        return movieRepo.findByMovieName(name);
+    }
     public void updateMovie(int id, Movie movieToUpdate){
         if (movieRepo.existsById(id))
         {movieRepo.changeMovieName(id,movieToUpdate.getMovieName());

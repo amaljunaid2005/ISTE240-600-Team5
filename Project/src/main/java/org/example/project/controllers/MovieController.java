@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +29,11 @@ public class MovieController {
             return new ResponseEntity<Movie>(movie.get(), HttpStatus.OK);
         else
             return new ResponseEntity<Movie>((HttpHeaders) null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("api/movies/search")
+    public ResponseEntity<List<Movie>> searchMovies(@RequestParam String name){
+        return new ResponseEntity<>(movieService.getMovieByName(name), HttpStatus.OK);
     }
 
 }
