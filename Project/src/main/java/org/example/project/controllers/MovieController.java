@@ -61,5 +61,16 @@ public class MovieController {
         }
     }
 
+    //deleting a record
+    @DeleteMapping("/api/movies/{id}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable int id){
+        Optional<Movie> movieExists =movieService.getMovieById(id);
+
+        if(movieExists.isPresent()){
+            movieService.deleteMovie(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }

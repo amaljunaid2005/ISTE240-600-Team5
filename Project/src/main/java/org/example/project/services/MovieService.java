@@ -41,4 +41,8 @@ public class MovieService {
         movie.setReleaseYear(movieToUpdate.getReleaseYear());
         return movieRepo.save(movieToUpdate);
     }
+
+    public void deleteMovie(int id){
+        movieRepo.deleteById(id);
+    }
 }
