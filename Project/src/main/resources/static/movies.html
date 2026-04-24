@@ -11,20 +11,37 @@
 <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search by title">
 
 <!-- Add Button -->
-<button class="btn btn-primary mb-3" id="addBtn">Add Movie</button>
+<button class="btn btn-primary mb-3" id="addBtn">Add New Movie</button>
 
 <!-- Table -->
 <table class="table table-bordered table-hover">
   <thead class="table-dark">
   <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Genre</th>
-    <th>Year</th>
-    <th>Actions</th>
+      <th>ID</th>
+      <th>Movie Name</th>
+      <th>Year of Release</th>
+      <th>Director</th>
+      <th>Lead Actor</th>
+      <th>Genre</th>
+      <th>Description</th>
   </tr>
   </thead>
   <tbody id="movieTable"></tbody>
 </table>
+<!-- Form -->
+<div id="movieForm" class="card p-3" style="display:none;">
+    <input type="hidden" id="movieId">
+
+    <input class="form-control mb-2" id="movieName" placeholder="Movie Name">
+    <input class="form-control mb-2" id="yearOfRelease" placeholder="Year of Release">
+    <input class="form-control mb-2" id="director" placeholder="Director">
+    <input class="form-control mb-2" id="leadActor" placeholder="Lead Actor">
+    <input class="form-control mb-2" id="genre" placeholder="Genre">
+    <input class="form-control mb-2" id="description" placeholder="description">
+
+    <button class="btn btn-success" id="saveBtn">Save</button>
+    <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+</div>
+
 </body>
 </html>
