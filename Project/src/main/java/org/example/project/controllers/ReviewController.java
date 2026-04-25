@@ -57,4 +57,14 @@ public class ReviewController {
         }
     }
 
+    // DELETE: Delete review by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+        try {
+            reviewService.deleteReviewById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 if deleted
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 if not found
+        }
+    }
 }
