@@ -1,1 +1,66 @@
+package org.example.project.service;
+
+import org.example.project.model.Ticket;
+import org.example.project.repository.TicketRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class TicketService{
+  @Autowired
+  private TicketRepository ticketRepository;
+  //create
+  public Ticket bookTicket(Ticket ticket) {
+          ticket.setShowTime(ticket.getShowTime());
+          return ticketRepository.save(ticket);
+      }
+
+  //read
+  public List<Ticket> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+        refreshStatuses(tickets);
+        return tickets;
+    }
+
+    public Optional<Ticket> getTicketById(int id) {
+        Optional<Ticket> ticket = ticketRepository.findById(id);
+        ticket.ifPresent(t -> {
+            String freshStatus = Ticket.computeStatus(t.getShowTime());
+            if (!freshStatus.equals(t.getStatus())) {
+                ticketRepository.updateStatusById(t.getId(), freshStatus);
+                t.setStatus(freshStatus);
+            }
+        });
+        return ticket;
+    }
+
+    public List<Ticket> getTicketsByUser(int userId) {
+        List<Ticket> tickets = ticketRepository.findByUserId(userId);
+        refreshStatuses(tickets);
+        return tickets;
+    }
+
+    public List<Ticket> getTicketsByStatus(String status) {
+        return ticketRepository.findByStatus(status);
+    }
+
+    public List<Ticket> getTicketsByMovie(int movieId) {
+        return ticketRepository.findByMovieId(movieId);
+    }
+  
+
+    //update
+   public Ticket updateTicket(int id, Ticket updated) {
+        updated.setId(id);
+        updated.setShowTime(updated.getShowTime());
+        return ticketRepository.save(updated);
+    }
+
+  //delete
+   public void deleteTicket(int id) {
+        ticketRepository.deleteById(id);
+    }
+}
+
 
