@@ -141,7 +141,47 @@
 
 
         $("#movieForm").show();
-    })
+    });
+
+    //saving changes when form filled for adding new or updating existing movie
+    $("#saveBtn").click(function() {
+        let id = $("#movieId").val();
+
+        let movie = {
+            movieName: $("#movieName").val(),
+            yearOfRelease: $("#yearOfRelease").val(),
+            director: $("#director").val(),
+            leadActor: $("#leadActor").val(),
+            genre: $("#genre").val(),
+            description: $("#description").val()
+        };
+
+        if (id) {
+            //updating existing
+            $.ajax({
+                url: `${API_URL}/${id}`,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(movie),
+                success: function() {
+                    loadMovies();
+                    $("#movieForm").hide();
+                }
+            });
+        } else {
+            //creating new
+            $.ajax({
+                url: API_URL,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(movie),
+                success: function() {
+                    loadMovies();
+                    $("#movieForm").hide();
+                }
+            });
+        }
+    });
 
 
 </script>
