@@ -130,6 +130,19 @@
         });
     });
 
+    //showing form when add button is clicked
+    $("#addBtn").click(function (){
+        $("#movieId").val("");
+        $("#yearOfRelease").val("");
+        $("#director").val("");
+        $("#leadActor").val("");
+        $("#genre").val("");
+        $("#description").val("");
+
+
+        $("#movieForm").show();
+    })
+
 
 </script>
 </body>
