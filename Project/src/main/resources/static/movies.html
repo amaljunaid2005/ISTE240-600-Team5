@@ -24,6 +24,7 @@
       <th>Lead Actor</th>
       <th>Genre</th>
       <th>Description</th>
+      <th>Actions</th>
   </tr>
   </thead>
   <tbody id="movieTable"></tbody>
@@ -33,7 +34,7 @@
     <input type="hidden" id="movieId">
 
     <input class="form-control mb-2" id="movieName" placeholder="Movie Name">
-    <input class="form-control mb-2" id="yearOfRelease" placeholder="Year of Release">
+    <input type="number" class="form-control mb-2" id="releaseYear" placeholder="Year of Release">
     <input class="form-control mb-2" id="director" placeholder="Director">
     <input class="form-control mb-2" id="leadActor" placeholder="Lead Actor">
     <input class="form-control mb-2" id="genre" placeholder="Genre">
@@ -48,13 +49,13 @@
     //function for loading rows into table
     function loadMovies(){
         $.get(API_URL,function(data){
-            let records="";
+            let rows="";
             data.forEach(movie => {
                 rows+=`
                 <tr>
                 <td>${movie.id}</td>
                 <td>${movie.movieName}</td>
-                <td>${movie.yearOfRelease}</td>
+                <td>${movie.releaseYear}</td>
                 <td>${movie.director}</td>
                 <td>${movie.leadActor}</td>
                 <td>${movie.genre}</td>
@@ -88,7 +89,8 @@
 
         $.get(`${API_URL}/${id}`, function(movie) {
             $("#movieId").val(movie.id);
-            $("#yearOfRelease").val(movie.yearOfRelease);
+            $("#movieName").val(movie.movieName);
+            $("#releaseYear").val(movie.releaseYear);
             $("#director").val(movie.director);
             $("#leadActor").val(movie.leadActor);
             $("#genre").val(movie.genre);
@@ -114,7 +116,7 @@
                 <tr>
                 <td>${movie.id}</td>
                 <td>${movie.movieName}</td>
-                <td>${movie.yearOfRelease}</td>
+                <td>${movie.releaseYear}</td>
                 <td>${movie.director}</td>
                 <td>${movie.leadActor}</td>
                 <td>${movie.genre}</td>
@@ -133,7 +135,7 @@
     //showing form when add button is clicked
     $("#addBtn").click(function (){
         $("#movieId").val("");
-        $("#yearOfRelease").val("");
+        $("#releaseYear").val("");
         $("#director").val("");
         $("#leadActor").val("");
         $("#genre").val("");
@@ -149,7 +151,7 @@
 
         let movie = {
             movieName: $("#movieName").val(),
-            yearOfRelease: $("#yearOfRelease").val(),
+            releaseYear: $("#releaseYear").val(),
             director: $("#director").val(),
             leadActor: $("#leadActor").val(),
             genre: $("#genre").val(),
@@ -187,7 +189,7 @@
         $("#movieForm").hide();
     });
 
-    //loading table when application starts
+    //loading table when web app loads
     $(document).ready(function (){
         loadMovies();
     });
