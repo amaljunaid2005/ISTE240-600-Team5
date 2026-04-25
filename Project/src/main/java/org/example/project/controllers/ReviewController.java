@@ -35,4 +35,15 @@ public class ReviewController {
         }
     }
 
+    // POST: Add a new review
+    @PostMapping("/add")
+    public ResponseEntity<Review> addReview(@RequestBody Review review, @RequestParam Long userId, @RequestParam Long movieId) {
+        try {
+            Review savedReview = reviewService.saveReview(review);
+            return new ResponseEntity<>(savedReview, HttpStatus.CREATED); // Return saved review
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500 if error
+        }
+    }
+    
 }
