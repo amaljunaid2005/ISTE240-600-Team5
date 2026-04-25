@@ -32,9 +32,15 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findByReviewDateBetween (LocalDate startDate, LocalDate endDate);
 
+    List<Review> findByReviewTextContainingIgnoreCase(String reviewText);
+
     @Modifying
     @Query("DELETE FROM Review r WHERE r.userProfile = :userProfile AND r.movie = :movie")
     Optional<Review> deleteByUserProfileAndMovie(@Param("userProfile") UserProfile userProfile, @Param("movie") Movie movie);
+
+    @Modifying
+    @Query("UPDATE Review r SET r.reviewText = :reviewText, r.rating = :rating WHERE r.id = :id")
+    void updateReviewTextAndRatingById(@Param("id") Long id, @Param("reviewText") String reviewText, @Param("rating") int rating);
 
     long countByMovie(Movie movie);
 }
