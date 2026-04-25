@@ -18,11 +18,19 @@ public class ReviewService {
     @Autowired
     ReviewRepository reviewRepository;
 
-    public Review saveReview(Review reviewToSave){
+    public Review saveReview(Review reviewToSave) {
 
-        Review existingReview = reviewRepository.findByMovieAndUserProfile(reviewToSave.getMovie(), reviewToSave.getUserProfile()).orElse(null);
-        if (existingReview != null) {
-            return existingReview;
+        // Only check for duplicates if both movie and user are specified
+        if (reviewToSave.getMovie() != null && reviewToSave.getUserProfile() != null) {
+            Review existingReview = reviewRepository
+                    .findByMovieAndUserProfile(
+                            reviewToSave.getMovie(),
+                            reviewToSave.getUserProfile()
+                    ).orElse(null);
+
+            if (existingReview != null) {
+                return existingReview;
+            }
         }
 
         Review newReview = new Review();
@@ -31,7 +39,6 @@ public class ReviewService {
         newReview.setMovie(reviewToSave.getMovie());
         newReview.setRating(reviewToSave.getRating());
         newReview.setReviewDate(reviewToSave.getReviewDate());
-
         return reviewRepository.save(newReview);
     }
 
@@ -63,6 +70,10 @@ public class ReviewService {
 
     public List<Review> getReviewsByUserProfile(UserProfile userProfile) {
         return reviewRepository.findByUserProfile(userProfile);
+    }
+
+    public List<Review> searchByReviewText(String reviewText) {
+        return reviewRepository.findByReviewTextContainingIgnoreCase(reviewText);
     }
 
     public long countReviewsForMovie(Movie movie) {
