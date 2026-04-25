@@ -33,12 +33,12 @@
 <div id="movieForm" class="card p-3" style="display:none;">
     <input type="hidden" id="movieId">
 
-    <input class="form-control mb-2" id="movieName" placeholder="Movie Name">
-    <input type="number" class="form-control mb-2" id="releaseYear" placeholder="Year of Release">
-    <input class="form-control mb-2" id="director" placeholder="Director">
-    <input class="form-control mb-2" id="leadActor" placeholder="Lead Actor">
-    <input class="form-control mb-2" id="genre" placeholder="Genre">
-    <input class="form-control mb-2" id="description" placeholder="description">
+    <input class="form-control mb-2" id="movieName" placeholder="Movie Name" required>
+    <input type="number" class="form-control mb-2" id="releaseYear" placeholder="Year of Release" required>
+    <input class="form-control mb-2" id="director" placeholder="Director" required>
+    <input class="form-control mb-2" id="leadActor" placeholder="Lead Actor" required>
+    <input class="form-control mb-2" id="genre" placeholder="Genre" required>
+    <input class="form-control mb-2" id="description" placeholder="description" required>
 
     <button class="btn btn-success" id="saveBtn">Save</button>
     <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
@@ -157,6 +157,36 @@
             genre: $("#genre").val(),
             description: $("#description").val()
         };
+        if (!movie.movieName) {
+            alert("Movie name is required");
+            return;
+        }
+
+        if (!movie.releaseYear || isNaN(movie.releaseYear)) {
+            alert("Valid release year is required");
+            return;
+        }
+
+        if (!movie.director) {
+            alert("Director is required");
+            return;
+        }
+
+        if (!movie.leadActor){
+            alert("Lead Actor is required")
+            return;
+        }
+
+        if (!movie.genre){
+            alert("Genre is required")
+            return;
+        }
+
+        if (!movie.description){
+            alert("description is required")
+            return;
+        }
+
 
         if (id) {
             //updating existing
