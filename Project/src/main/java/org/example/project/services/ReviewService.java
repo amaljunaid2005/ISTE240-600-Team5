@@ -44,5 +44,30 @@ public class ReviewService {
         return reviewRepository.findByMovieAndUserProfile(movie,userProfile);
     }
 
+    public void deleteReviewById (Long id) {
+        if (!reviewRepository.existsById(id)) {
+            throw new IllegalArgumentException("Review not found");
+        }
+        reviewRepository.deleteById(id);
+    }
 
+    public void deleteReviewByUserProfileAndMovie (UserProfile userProfile, Movie movie){
+        if (!reviewRepository.existsByUserProfileAndMovie(userProfile, movie) ) {
+            throw new IllegalArgumentException("Review not found");
+        }
+        reviewRepository.deleteByUserProfileAndMovie(userProfile, movie);
+    }
+
+    public Review updateReview(Long id, Review reviewToUpdate){
+
+        // Check if the review exists
+        Review existingReview = reviewRepository.findById(id).orElseThrow(() -> new RuntimeException("Review not found for the provided ID"));
+
+        existingReview.setReviewText(reviewToUpdate.getReviewText());
+        existingReview.setRating(reviewToUpdate.getRating());
+        existingReview.setUserProfile(reviewToUpdate.getUserProfile());
+        existingReview.setMovie(reviewToUpdate.getMovie());
+
+        return reviewRepository.save(existingReview);
+    }
 }
