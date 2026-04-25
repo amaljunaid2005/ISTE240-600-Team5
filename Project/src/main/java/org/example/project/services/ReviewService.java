@@ -51,13 +51,6 @@ public class ReviewService {
         reviewRepository.deleteById(id);
     }
 
-    public void deleteReviewByUserProfileAndMovie (UserProfile userProfile, Movie movie){
-        if (!reviewRepository.existsByUserProfileAndMovie(userProfile, movie) ) {
-            throw new IllegalArgumentException("Review not found");
-        }
-        reviewRepository.deleteByUserProfileAndMovie(userProfile, movie);
-    }
-
     public Review updateReview(Long id, Review reviewToUpdate){
 
         // Check if the review exists

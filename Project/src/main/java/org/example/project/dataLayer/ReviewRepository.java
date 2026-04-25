@@ -36,6 +36,4 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("DELETE FROM Review r WHERE r.userProfile = :userProfile AND r.movie = :movie")
     Optional<Review> deleteByUserProfileAndMovie(@Param("userProfile") UserProfile userProfile, @Param("movie") Movie movie);
 
-
-    boolean existsByUserProfileAndMovie(UserProfile userProfile, Movie movie);
 }
