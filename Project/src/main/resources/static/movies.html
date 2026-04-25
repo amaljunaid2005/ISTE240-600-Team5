@@ -82,6 +82,23 @@
             }
         });
     });
+    // Editing a record button
+    $(document).on("click", ".editBtn", function() {
+        let id = $(this).data("id");
+
+        $.get(`${API_URL}/${id}`, function(movie) {
+            $("#movieId").val(movie.id);
+            $("#yearOfRelease").val(movie.yearOfRelease);
+            $("#director").val(movie.director);
+            $("#leadActor").val(movie.leadActor);
+            $("#genre").val(movie.genre);
+            $("#description").val(movie.description);
+
+
+            $("#movieForm").show();
+        });
+    });
+
 
 </script>
 </body>
