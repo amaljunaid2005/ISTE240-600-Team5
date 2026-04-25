@@ -19,7 +19,7 @@ public class ReviewService {
 
         Review existingReview = reviewRepository.findByMovieAndUserProfile(reviewToSave.getMovie(), reviewToSave.getUserProfile()).orElse(null);
         if (existingReview != null) {
-            throw new IllegalArgumentException("You have already reviewed this movie.");
+            return existingReview;
         }
 
         Review newReview = new Review();
@@ -42,6 +42,28 @@ public class ReviewService {
 
     public Optional<Review> getReviewByMovieAndUserProfile (Movie movie, UserProfile userProfile) {
         return reviewRepository.findByMovieAndUserProfile(movie,userProfile);
+    }
+
+    public double getAverageRatingForMovie(Movie movie) {
+        List<Review> reviews = reviewRepository.findByMovie(movie);
+        if (reviews.isEmpty()) {
+            return 0; // Case where there are no reviews
+        }
+
+        double totalRating = reviews.stream().mapToInt(Review::getRating).sum();
+        return totalRating / reviews.size();
+    }
+
+    public List<Review> getReviewsByMovie(Movie movie) {
+        return reviewRepository.findByMovie(movie);
+    }
+
+    public List<Review> getReviewsByUserProfile(UserProfile userProfile) {
+        return reviewRepository.findByUserProfile(userProfile);
+    }
+
+    public long countReviewsForMovie(Movie movie) {
+        return reviewRepository.countByMovie(movie);
     }
 
     public void deleteReviewById (Long id) {
