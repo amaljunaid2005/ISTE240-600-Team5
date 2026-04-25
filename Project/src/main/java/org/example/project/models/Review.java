@@ -42,7 +42,7 @@ public class Review {
         this.movie = movie;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
