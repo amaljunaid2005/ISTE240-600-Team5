@@ -45,5 +45,16 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500 if error
         }
     }
-    
+
+    // PUT: Update an existing review
+    @PutMapping("/{id}")
+    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
+        try {
+            Review updatedReview = reviewService.updateReview(id, review);
+            return new ResponseEntity<>(updatedReview, HttpStatus.OK); // Return updated review
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 if review not found
+        }
+    }
+
 }
