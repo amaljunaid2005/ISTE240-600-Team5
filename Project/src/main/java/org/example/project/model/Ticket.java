@@ -38,6 +38,10 @@ public class Ticket {
         this.status = showTime.toLocalDate().isBefore(LocalDate.now())
                 ? "previously_watched" : "going_to_watch";
     }
+    public static String computeStatus(LocalDateTime showTime) {
+    return showTime.toLocalDate().isBefore(LocalDate.now())
+            ? "previously_watched" : "going_to_watch";
+}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
