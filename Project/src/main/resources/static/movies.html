@@ -98,6 +98,37 @@
             $("#movieForm").show();
         });
     });
+    // Searching using movie name
+    $("#searchInput").on("input", function() {
+        let query = $(this).val();
+
+        if (query === "") {
+            loadMovies();
+            return;
+        }
+
+        $.get(`${API_URL}/search?name=${query}`, function(data) {
+            let rows = "";
+            data.forEach(movie => {
+                rows += `
+                <tr>
+                <td>${movie.id}</td>
+                <td>${movie.movieName}</td>
+                <td>${movie.yearOfRelease}</td>
+                <td>${movie.director}</td>
+                <td>${movie.leadActor}</td>
+                <td>${movie.genre}</td>
+                <td>${movie.description}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm editBtn" data-id="${movie.id}">Edit</button>
+                        <button class="btn btn-danger btn-sm deleteBtn" data-id="${movie.id}">Delete</button>
+                    </td>
+                </tr>
+            `;
+            });
+            $("#movieTable").html(rows);
+        });
+    });
 
 
 </script>
