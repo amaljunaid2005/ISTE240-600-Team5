@@ -1,7 +1,14 @@
 package org.example.project.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class UserProfile {
+
+    @Id
     private int userId;
+
     private String username;
     private String email;
     private int age;

@@ -1,11 +1,16 @@
 package org.example.project.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 /*
  * Represents a Movie that can be reviewed or added to a favorites list
  * Includes the name of the movie, its genre, director and lead actor as well as a short description of its premise.
  */
+@Entity
 public class Movie {
 
+    @Id
     private int id;
     private String movieName;
     private int releaseYear;
