@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelTalk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-content">
+        <a href="/" class="nav-logo">Reel<span>Talk</span></a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/users">Users</a>
+            <a href="/tickets">Tickets</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main -->
+<div class="page-wrapper">
+
+    <h1 class="page-title">Reviews</h1>
+    <p class="page-subtitle">All entries</p>
+    <div class="red-rule"></div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="search-wrap">
+            <span class="search-icon">&#9906;</span>
+            <input type="text" id="searchText" placeholder="Search by review text…">
+        </div>
+        <button class="btn-search" onclick="searchReview()">Search</button>
+        <button class="btn-add" onclick="openAddModal()">+ Add Review</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Review</th>
+                <th>Rating</th>
+                <th>Date</th>
+                <th>User</th>
+                <th>Movie</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="reviewTable">
+            <tr>
+                <td colspan="7" class="empty-state">No reviews yet.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Review Form</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="reviewId">
+
+                <div>
+                    <label for="reviewText">Review</label>
+                    <input type="text" id="reviewText" class="form-control" placeholder="Write your review…">
+                </div>
+                <div>
+                    <label for="rating">Rating (1–10)</label>
+                    <input type="number" id="rating" class="form-control" placeholder="e.g. 8" min="1" max="10">
+                </div>
+                <div>
+                    <label for="userId">User</label>
+                    <select id="userId" class="form-select">
+                        <option value="">Select user</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="movieId">Movie</label>
+                    <select id="movieId" class="form-select">
+                        <option value="">Select movie</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex gap-2">
+                <button class="btn-save" onclick="saveReview()">Save</button>
+                <button class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/javascript/review.js"></script>
+
+</body>
+</html>
