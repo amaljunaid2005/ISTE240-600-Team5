@@ -1,1 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 
+<!-- Search -->
+<input type="number" id="searchInput" class="form-control mb-3" placeholder="Search by Movie ID">
+
+<!-- Add Button -->
+<button class="btn btn-primary mb-3" id="addBtn">Book Ticket</button>
+
+<!-- Table -->
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>User ID</th>
+        <th>Movie ID</th>
+        <th>Show Time</th>
+        <th>Seat</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="ticketTable"></tbody>
+</table>
+
+<!-- Form -->
+<div id="ticketForm" class="card p-3" style="display:none;">
+    <input type="hidden" id="ticketId">
+
+    <input type="number" class="form-control mb-2" id="userId" placeholder="User ID" required>
+    <input type="number" class="form-control mb-2" id="movieId" placeholder="Movie ID" required>
+    <input type="datetime-local" class="form-control mb-2" id="showTime" required>
+    <input class="form-control mb-2" id="seat" placeholder="Seat (e.g. A1)" required>
+
+    <button class="btn btn-success" id="saveBtn">Save</button>
+    <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+</div>
+
+<script>
+    const API_URL = "http://localhost:8080/api/tickets";
+
+    // Load tickets
+    function loadTickets(){
+        $.get(API_URL,function(data){
+            let rows="";
+            data.forEach(t => {
+                rows+=`
+                <tr>
+                <td>${t.id}</td>
+                <td>${t.user ? t.user.userId : ''}</td>
+                <td>${t.movieId}</td>
+                <td>${t.showTime ? new Date(t.showTime).toLocaleString() : ''}</td>
+                <td>${t.seat}</td>
+                <td>${t.status}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm editBtn" data-id="${t.id}">Edit</button>
+                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${t.id}">Delete</button>
+                </td>
+                </tr>`;
+            });
+            $("#ticketTable").html(rows);
+        });
+    }
+
+    // Delete
+    $(document).on("click", ".deleteBtn", function() {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: `${API_URL}/${id}`,
+            type: "DELETE",
+            success: function() {
+                loadTickets();
+            }
+        });
+    });
+
+    // Edit
+    $(document).on("click", ".editBtn", function() {
+        let id = $(this).data("id");
+
+        $.get(`${API_URL}/${id}`, function(t) {
+            $("#ticketId").val(t.id);
+            $("#userId").val(t.user ? t.user.userId : '');
+            $("#movieId").val(t.movieId);
+            $("#showTime").val(t.showTime ? t.showTime.substring(0,16) : '');
+            $("#seat").val(t.seat);
+
+            $("#ticketForm").show();
+        });
+    });
+
+    // Search by movie ID
+    $("#searchInput").on("input", function() {
+        let query = $(this).val();
+
+        if (query === "") {
+            loadTickets();
+            return;
+        }
+
+        $.get(`${API_URL}/search?movieId=${query}`, function(data) {
+            let rows="";
+            data.forEach(t => {
+                rows+=`
+                <tr>
+                <td>${t.id}</td>
+                <td>${t.user ? t.user.userId : ''}</td>
+                <td>${t.movieId}</td>
+                <td>${t.showTime ? new Date(t.showTime).toLocaleString() : ''}</td>
+                <td>${t.seat}</td>
+                <td>${t.status}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm editBtn" data-id="${t.id}">Edit</button>
+                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${t.id}">Delete</button>
+                </td>
+                </tr>`;
+            });
+            $("#ticketTable").html(rows);
+        });
+    });
+
+    // Add button
+    $("#addBtn").click(function (){
+        $("#ticketId").val("");
+        $("#userId").val("");
+        $("#movieId").val("");
+        $("#showTime").val("");
+        $("#seat").val("");
+
+        $("#ticketForm").show();
+    });
+
+    // Save
+    $("#saveBtn").click(function() {
+        let id = $("#ticketId").val();
+
+        let ticket = {
+            user: { userId: parseInt($("#userId").val()) },
+            movieId: parseInt($("#movieId").val()),
+            showTime: $("#showTime").val(),
+            seat: $("#seat").val()
+        };
+
+        if (!ticket.user.userId || !ticket.movieId || !ticket.showTime || !ticket.seat) {
+            alert("All fields are required");
+            return;
+        }
+
+        if (id) {
+            $.ajax({
+                url: `${API_URL}/${id}`,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(ticket),
+                success: function() {
+                    loadTickets();
+                    $("#ticketForm").hide();
+                }
+            });
+        } else {
+            $.ajax({
+                url: API_URL,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(ticket),
+                success: function() {
+                    loadTickets();
+                    $("#ticketForm").hide();
+                }
+            });
+        }
+    });
+
+    // Cancel
+    $("#cancelBtn").click(function (){
+        $("#ticketForm").hide();
+    });
+
+    // Load on start
+    $(document).ready(function (){
+        loadTickets();
+    });
+
+</script>
+</body>
+</html>
