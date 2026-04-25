@@ -1,5 +1,6 @@
 package org.example.project.controllers;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.project.models.Review;
 import org.example.project.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,54 +18,65 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    // GET: Get all reviews
     @GetMapping
     public ResponseEntity<List<Review>> getReviews() {
         List<Review> reviewList = reviewService.getAllReviews();
-        return new ResponseEntity<>(reviewList, HttpStatus.OK); // Return reviews as JSON
+        return new ResponseEntity<>(reviewList, HttpStatus.OK);
     }
 
-    // GET: Get a review by ID
     @GetMapping("/{id}")
     public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
         Optional<Review> review = reviewService.getReviewById(id);
         if (review.isPresent()) {
-            return new ResponseEntity<>(review.get(), HttpStatus.OK); // Return review as JSON
+            return new ResponseEntity<>(review.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 if not found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // POST: Add a new review
-    @PostMapping("/add")
-    public ResponseEntity<Review> addReview(@RequestBody Review review, @RequestParam Long userId, @RequestParam Long movieId) {
+    @GetMapping("/search")
+    public ResponseEntity<List<Review>> searchReviews(@RequestParam String reviewText) {
+        List<Review> results = reviewService.searchByReviewText(reviewText);
+        return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Review> addReview(@RequestBody Review review) {
         try {
             Review savedReview = reviewService.saveReview(review);
-            return new ResponseEntity<>(savedReview, HttpStatus.CREATED); // Return saved review
+
+            System.out.println("POST HIT");
+            System.out.println(review);
+
+            return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500 if error
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // PUT: Update an existing review
     @PutMapping("/{id}")
-    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
+    public ResponseEntity<Review> updateReview(
+            @PathVariable Long id,
+            @RequestBody Review review) {
         try {
             Review updatedReview = reviewService.updateReview(id, review);
-            return new ResponseEntity<>(updatedReview, HttpStatus.OK); // Return updated review
+            return new ResponseEntity<>(updatedReview, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 if review not found
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // DELETE: Delete review by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
         try {
             reviewService.deleteReviewById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 if deleted
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 if not found
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
