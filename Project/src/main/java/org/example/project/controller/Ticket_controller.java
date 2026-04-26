@@ -20,7 +20,6 @@ public class TicketController {
 
     @GetMapping
     public List<Ticket> getAllTickets() {
-        ticketService.refreshStatuses();
         return ticketService.getAllTickets();
     }
 
@@ -33,13 +32,11 @@ public class TicketController {
 
     @GetMapping("/user/{userId}")
     public List<Ticket> getByUser(@PathVariable Long userId) {
-        ticketService.refreshStatuses();
         return ticketService.getTicketsByUser(userId);
     }
 
     @GetMapping("/user/{userId}/status/{status}")
-    public List<Ticket> getByUserAndStatus(@PathVariable Long userId,
-                                           @PathVariable String status) {
+    public List<Ticket> getByUserAndStatus(@PathVariable Long userId) {
         ticketService.refreshStatuses();
         return ticketService.getTicketsByUserAndStatus(userId, status.toUpperCase());
     }
