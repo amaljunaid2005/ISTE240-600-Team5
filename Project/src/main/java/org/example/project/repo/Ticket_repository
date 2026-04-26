@@ -1,5 +1,5 @@
 //GRISHMA BHANDARI 761001853
-package org.example.project.repository;
+package org.example.project.repo;
 import com.moviereview.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,8 +12,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     @Query("SELECT t FROM Ticket t WHERE t.user.userId = :userId")
     List<Ticket> findByUserId(@Param("userId") int userId);
     List<Ticket> findByStatus(String status);
-    List<Ticket> findByMovieId(int movieId);
-
+    @Query("SELECT t FROM Ticket t WHERE LOWER(t.movie.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    List<Ticket> findByMovieTitleContaining(@Param("title") String title);
     @Modifying
     @Transactional
     @Query("UPDATE Ticket t SET t.status = :status WHERE t.id = :id")
