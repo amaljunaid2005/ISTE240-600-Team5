@@ -36,7 +36,7 @@ public class UserService {
 
     }
 
-    public UserProfile updatUserProfile(int UserId, UserProfile userProfileToUpdate) {
+    public UserProfile updateUserProfile(int UserId, UserProfile userProfileToUpdate) {
         UserProfile userProfile = usersRepository.findById(UserId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
                 userProfile.setUsername(userProfileToUpdate.getUsername());
