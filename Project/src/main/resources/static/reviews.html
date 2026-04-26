@@ -132,7 +132,7 @@
     });
 
     function loadUsers() {
-        $.get("http://localhost:8080/api/users", function(data) {
+        $.get("http://localhost:8080/api/UserProfiles", function(data) {
             let options = `<option value="">Select user</option>`;
             data.forEach(u => {
                 options += `<option value="${u.userId}">${u.username}</option>`;
@@ -212,6 +212,7 @@
             ? `http://localhost:8080/api/reviews/${reviewId}`
             : `http://localhost:8080/api/reviews?userId=${userId}&movieId=${movieId}`;
 
+        let method = isEdit ? "PUT" : "POST";
         $.ajax({
             url: url,
             type: method,
