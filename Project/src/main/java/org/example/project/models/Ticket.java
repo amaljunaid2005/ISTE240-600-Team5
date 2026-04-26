@@ -1,9 +1,8 @@
 //GRISHMA BHANDARI 761001853
 
-package org.example.project.model;
+package org.example.project.models;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,28 +27,53 @@ public class Ticket {
     @Column(name = "seat")
     private String seat;
 
-
     public Ticket() {}
 
-    public Ticket(UserProfile user, int movieId, LocalDateTime showTime, String seat) {
+    public Ticket(UserProfile user, Movie movie, LocalDateTime showTime, String seat) {
         this.user = user;
-        this.movieId = movieId;
+        this.movie = movie;
         this.showTime = showTime;
         this.seat = seat;
+    }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
-    public UserProfile getUser() { return user; }
-    public void setUser(UserProfile user) { this.user = user; }
+    public Long getId() {
+        return id;
+    }
 
-    public Movie getMovie() { return movie; }
-    public void setMovie(Movie movie) { this.movie = movie; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public LocalDateTime getShowTime() { return showTime; }
+    public UserProfile getUser() {
+        return user;
+    }
+
+    public void setUser(UserProfile user) {
+        this.user = user;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public LocalDateTime getShowTime() {
+        return showTime;
+    }
+
     public void setShowTime(LocalDateTime showTime) {
         this.showTime = showTime;
-     
-    public String getSeat() { return seat; }
-    public void setSeat(String seat) { this.seat = seat; }
+    }
+
+    public String getSeat() {
+        return seat;
+    }
+
+    public void setSeat(String seat) {
+        this.seat = seat;
+    }
 }
