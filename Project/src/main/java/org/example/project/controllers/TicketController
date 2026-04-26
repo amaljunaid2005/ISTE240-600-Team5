@@ -1,0 +1,73 @@
+//Grishma Bhandari 761001853
+
+package com.moviereview.controller;
+
+import org.example.project.models.Ticket;
+import org.example.project.services.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/tickets")
+@CrossOrigin(origins = "*")
+public class TicketController {
+
+    @Autowired
+    private TicketService ticketService;
+
+    @GetMapping
+    public List<Ticket> getAllTickets() {
+        return ticketService.getAllTickets();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Ticket> getById(@PathVariable Long id) {
+        return ticketService.getTicketById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Ticket> getByUser(@PathVariable Long userId) {
+        return ticketService.getTicketsByUser(userId);
+    }
+
+    @GetMapping("/user/{userId}/status/{status}")
+    public List<Ticket> getByUserAndStatus(@PathVariable Long userId) {
+        ticketService.refreshStatuses();
+        return ticketService.getTicketsByUserAndStatus(userId, status.toUpperCase());
+    }
+
+    @GetMapping("/search")
+    public List<Ticket> search(@RequestParam String title) {
+        return ticketService.searchByMovieTitle(title);
+    }
+
+    @PostMapping
+    public Ticket bookTicket(@RequestParam Long userId,
+                             @RequestParam Long movieId,
+                             @RequestBody Ticket ticket) {
+        return ticketService.bookTicket(userId, movieId, ticket);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ticket> updateTicket(@PathVariable Long id,
+                                               @RequestBody Ticket ticket) {
+        if (ticketService.getTicketById(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(ticketService.updateTicket(id, ticket));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+        if (ticketService.getTicketById(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        ticketService.deleteTicket(id);
+        return ResponseEntity.noContent().build();
+    }
+}

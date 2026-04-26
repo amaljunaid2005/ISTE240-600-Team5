@@ -1,0 +1,442 @@
+<!--GRISHMA BHANDARI 761001853-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelTalk</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Same CSS file as team -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-content">
+        <a href="/" class="nav-logo">
+            Reel<span>Talk</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/users">Users</a>
+            <a href="/tickets">Tickets</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="page-wrapper">
+
+    <h1 class="page-title">Tickets</h1>
+    <p class="page-subtitle">Manage movie bookings</p>
+
+    <div class="red-rule"></div>
+
+
+    <!-- TOOLBAR (matches Reviews page) -->
+    <div class="toolbar">
+
+        <div class="search-wrap">
+            <span class="search-icon">&#9906;</span>
+            <input
+                    type="number"
+                    id="searchInput"
+                    placeholder="Search by Movie ID">
+        </div>
+
+        <button class="btn-search">
+            Search
+        </button>
+
+        <button
+                class="btn-add"
+                id="addBtn">
+            + Book Ticket
+        </button>
+
+    </div>
+
+
+
+    <!-- TABLE CARD -->
+    <div class="table-card">
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Movie ID</th>
+                <th>Show Time</th>
+                <th>Seat</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody id="ticketTable">
+            <tr>
+                <td colspan="7" class="empty-state">
+                    No tickets booked yet.
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="ticketModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Ticket Form</h5>
+                <button
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="ticketId">
+
+                <div>
+                    <label>User ID</label>
+                    <input
+                            type="number"
+                            class="form-control"
+                            id="userId"
+                            placeholder="Enter user ID">
+                </div>
+
+                <div>
+                    <label>Movie ID</label>
+                    <input
+                            type="number"
+                            class="form-control"
+                            id="movieId"
+                            placeholder="Enter movie ID">
+                </div>
+
+                <div>
+                    <label>Show Time</label>
+                    <input
+                            type="datetime-local"
+                            class="form-control"
+                            id="showTime">
+                </div>
+
+                <div>
+                    <label>Seat</label>
+                    <input
+                            class="form-control"
+                            id="seat"
+                            placeholder="A1">
+                </div>
+
+            </div>
+
+            <div class="modal-footer d-flex gap-2">
+                <button
+                        class="btn-save"
+                        id="saveBtn">
+                    Save
+                </button>
+
+                <button
+                        class="btn-cancel"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    const API_URL="http://localhost:8080/api/tickets";
+    let ticketModal;
+
+
+    function loadTickets(){
+        $.get(API_URL,function(data){
+
+            let rows="";
+
+            if(data.length===0){
+                rows=`
+             <tr>
+               <td colspan="7" class="empty-state">
+                 No tickets booked yet.
+               </td>
+             </tr>
+            `;
+            }
+
+            data.forEach(t=>{
+
+                rows+=`
+            <tr>
+                <td>${t.id}</td>
+                <td>${t.user ? t.user.userId : ''}</td>
+                <td>${t.movieId}</td>
+                <td>${t.showTime ?
+                    new Date(t.showTime).toLocaleString() : ''}</td>
+                <td>${t.seat}</td>
+                <td>${t.status}</td>
+
+                <td>
+                    <button
+                        class="btn btn-sm btn-warning editBtn"
+                        data-id="${t.id}">
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn btn-sm btn-danger deleteBtn"
+                        data-id="${t.id}">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            `;
+            });
+
+            $("#ticketTable").html(rows);
+
+        });
+    }
+
+
+
+    $(document).on("click",".deleteBtn",function(){
+
+        let id=$(this).data("id");
+
+        $.ajax({
+            url:`${API_URL}/${id}`,
+            type:"DELETE",
+
+            success:function(){
+                loadTickets();
+            }
+        });
+
+    });
+
+
+
+    $(document).on("click",".editBtn",function(){
+
+        let id=$(this).data("id");
+
+        $.get(`${API_URL}/${id}`,function(t){
+
+            $("#ticketId").val(t.id);
+            $("#userId").val(
+                t.user ? t.user.userId : ''
+            );
+
+            $("#movieId").val(t.movieId);
+
+            $("#showTime").val(
+                t.showTime ?
+                    t.showTime.substring(0,16):''
+            );
+
+            $("#seat").val(t.seat);
+
+            ticketModal.show();
+
+        });
+
+    });
+
+
+
+    /* SEARCH */
+    $("#searchInput").on("input",function(){
+
+        let query=$(this).val();
+
+        if(query===""){
+            loadTickets();
+            return;
+        }
+
+        $.get(
+            `${API_URL}/search?movieId=${query}`,
+            function(data){
+
+                let rows="";
+
+                data.forEach(t=>{
+
+                    rows+=`
+<tr>
+<td>${t.id}</td>
+<td>${t.user ? t.user.userId:''}</td>
+<td>${t.movieId}</td>
+<td>${
+                        t.showTime ?
+                            new Date(
+                                t.showTime
+                            ).toLocaleString():''
+                    }</td>
+<td>${t.seat}</td>
+<td>${t.status}</td>
+
+<td>
+<button
+class="btn btn-warning btn-sm editBtn"
+data-id="${t.id}">
+Edit
+</button>
+
+<button
+class="btn btn-danger btn-sm deleteBtn"
+data-id="${t.id}">
+Delete
+</button>
+</td>
+</tr>
+`;
+
+                });
+
+                $("#ticketTable").html(rows);
+
+            });
+    });
+
+
+
+    $("#addBtn").click(function(){
+
+        $("#ticketId").val("");
+        $("#userId").val("");
+        $("#movieId").val("");
+        $("#showTime").val("");
+        $("#seat").val("");
+
+        ticketModal.show();
+
+    });
+
+
+
+    $("#saveBtn").click(function(){
+
+        let id=$("#ticketId").val();
+
+        let ticket={
+
+            user:{
+                userId:parseInt(
+                    $("#userId").val()
+                )
+            },
+
+            movieId:parseInt(
+                $("#movieId").val()
+            ),
+
+            showTime:$("#showTime").val(),
+
+            seat:$("#seat").val()
+
+        };
+
+
+
+        if(
+            !ticket.user.userId ||
+            !ticket.movieId ||
+            !ticket.showTime ||
+            !ticket.seat
+        ){
+            alert("All fields are required");
+            return;
+        }
+
+
+
+        if(id){
+
+            $.ajax({
+                url:`${API_URL}/${id}`,
+                type:"PUT",
+                contentType:"application/json",
+                data:JSON.stringify(ticket),
+
+                success:function(){
+
+                    loadTickets();
+                    ticketModal.hide();
+
+                }
+
+            });
+
+        }
+
+        else{
+
+            $.ajax({
+
+                url:API_URL,
+                type:"POST",
+                contentType:"application/json",
+                data:JSON.stringify(ticket),
+
+                success:function(){
+
+                    loadTickets();
+                    ticketModal.hide();
+
+                }
+
+            });
+
+        }
+
+    });
+
+    $(document).ready(function(){
+
+        ticketModal=
+            new bootstrap.Modal(
+                document.getElementById(
+                    'ticketModal'
+                )
+            );
+
+        loadTickets();
+
+    });
+
+</script>
+
+</body>
+</html>
