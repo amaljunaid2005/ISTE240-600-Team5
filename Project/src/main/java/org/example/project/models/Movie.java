@@ -1,4 +1,4 @@
-package org.example.project.model;
+package org.example.project.models;
 
 /*
  * Represents a Movie that can be reviewed or added to a favorites list

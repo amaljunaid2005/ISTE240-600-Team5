@@ -1,7 +1,7 @@
-package org.example.project.Controllers;
+package org.example.project.controllers;
 
 
-import org.example.project.model.UserProfile;
+import org.example.project.models.UserProfile;
 import org.example.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

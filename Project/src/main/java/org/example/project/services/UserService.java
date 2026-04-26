@@ -1,8 +1,8 @@
 package org.example.project.services;
 
-import org.example.project.model.UserProfile;
+import org.example.project.models.UserProfile;
 import jakarta.transaction.Transactional;
-import org.example.project.Repositories.UsersRepository;
+import org.example.project.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
