@@ -1,8 +1,9 @@
 //GRISHMA BHANDARI 761001853
 package com.moviereview.repository;
 
-import com.moviereview.model.Ticket;
-import com.moviereview.model.UserProfile;
+import org.example.project.models.Ticket
+import org.example.project.models.Movie;
+import org.example.project.models.User;;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
