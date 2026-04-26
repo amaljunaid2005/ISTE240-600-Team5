@@ -1,19 +1,18 @@
-//GRISHMA BHANDARI 761001853
+//Grishma Bhandari 761001853
 
-package org.example.project.controller;
+package com.moviereview.controller;
 
-import org.example.project.model.Ticket;
-import org.example.project.service.TicketService;
+import com.moviereview.model.Ticket;
+import com.moviereview.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tickets")
-@CrossOrigin(origins= "*")
+@CrossOrigin(origins = "*")
 public class TicketController {
 
     @Autowired
@@ -21,52 +20,57 @@ public class TicketController {
 
     @GetMapping
     public List<Ticket> getAllTickets() {
+        ticketService.refreshStatuses();
         return ticketService.getAllTickets();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Ticket> getTicketById(@PathVariable int id) {
-        Optional<Ticket> ticket = ticketService.getTicketById(id);
-        return ticket.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Ticket> getById(@PathVariable Long id) {
+        return ticketService.getTicketById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-    @GetMapping("/search")
-    public List<Ticket> searchByUser(@RequestParam int userId) {
+
+    @GetMapping("/user/{userId}")
+    public List<Ticket> getByUser(@PathVariable Long userId) {
+        ticketService.refreshStatuses();
         return ticketService.getTicketsByUser(userId);
     }
 
-    @GetMapping("/status")
-    public List<Ticket> getByStatus(@RequestParam String value) {
-        return ticketService.getTicketsByStatus(value);
+    @GetMapping("/user/{userId}/status/{status}")
+    public List<Ticket> getByUserAndStatus(@PathVariable Long userId,
+                                           @PathVariable String status) {
+        ticketService.refreshStatuses();
+        return ticketService.getTicketsByUserAndStatus(userId, status.toUpperCase());
     }
 
-    @GetMapping("/movie/{movieId}")
-    public List<Ticket> getByMovie(@PathVariable int movieId) {
-        return ticketService.getTicketsByMovie(movieId);
+    @GetMapping("/search")
+    public List<Ticket> search(@RequestParam String title) {
+        return ticketService.searchByMovieTitle(title);
     }
 
     @PostMapping
-    public Ticket bookTicket(@RequestBody Ticket ticket) {
-        return ticketService.bookTicket(ticket);
+    public Ticket bookTicket(@RequestParam Long userId,
+                             @RequestParam Long movieId,
+                             @RequestBody Ticket ticket) {
+        return ticketService.bookTicket(userId, movieId, ticket);
     }
 
-     @PutMapping("/{id}")
-    public ResponseEntity<Ticket> updateTicket(@PathVariable int id,
+    @PutMapping("/{id}")
+    public ResponseEntity<Ticket> updateTicket(@PathVariable Long id,
                                                @RequestBody Ticket ticket) {
-        Optional<Ticket> existing = ticketService.getTicketById(id);
-        if (existing.isEmpty()) {
+        if (ticketService.getTicketById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(ticketService.updateTicket(id, ticket));
     }
 
-      @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTicket(@PathVariable int id) {
-        Optional<Ticket> existing = ticketService.getTicketById(id);
-        if (existing.isEmpty()) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+        if (ticketService.getTicketById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         ticketService.deleteTicket(id);
         return ResponseEntity.noContent().build();
     }
 }
- 
