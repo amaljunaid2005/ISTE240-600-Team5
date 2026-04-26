@@ -1,6 +1,5 @@
-//Grishma Bhandari 761001853
-
-package com.moviereview.controller;
+// Grishma Bhandari 761001853
+package org.example.project.controllers;
 
 import org.example.project.models.Ticket;
 import org.example.project.services.TicketService;
@@ -30,16 +29,13 @@ public class TicketController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // ✅ FIXED: int instead of Long
     @GetMapping("/user/{userId}")
-    public List<Ticket> getByUser(@PathVariable Long userId) {
+    public List<Ticket> getByUser(@PathVariable int userId) {
         return ticketService.getTicketsByUser(userId);
     }
 
-    @GetMapping("/user/{userId}/status/{status}")
-    public List<Ticket> getByUserAndStatus(@PathVariable Long userId) {
-        ticketService.refreshStatuses();
-        return ticketService.getTicketsByUserAndStatus(userId, status.toUpperCase());
-    }
+ 
 
     @GetMapping("/search")
     public List<Ticket> search(@RequestParam String title) {
@@ -47,8 +43,8 @@ public class TicketController {
     }
 
     @PostMapping
-    public Ticket bookTicket(@RequestParam Long userId,
-                             @RequestParam Long movieId,
+    public Ticket bookTicket(@RequestParam int userId,
+                             @RequestParam int movieId,
                              @RequestBody Ticket ticket) {
         return ticketService.bookTicket(userId, movieId, ticket);
     }
