@@ -1,7 +1,9 @@
+// Done by Mehrin Fathima - 418006818
+
 package org.example.project.services;
 
 import jakarta.transaction.Transactional;
-import org.example.project.dataLayer.ReviewRepository;
+import org.example.project.repositories.ReviewRepository;
 import org.example.project.models.Movie;
 import org.example.project.models.Review;
 import org.example.project.models.UserProfile;

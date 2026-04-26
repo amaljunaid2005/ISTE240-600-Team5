@@ -1,3 +1,5 @@
+// Done by Mehrin Fathima - 418006818
+
 console.log("review.js loaded");
 let modal;
 
