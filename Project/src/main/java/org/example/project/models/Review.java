@@ -24,11 +24,11 @@ public class Review {
     private int rating; // Rating given by the user (1–10)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserProfile userProfile;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id", nullable = true)
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
     @Column(nullable = false)

@@ -42,9 +42,11 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<Review> addReview(@RequestBody Review review) {
+    public ResponseEntity<Review> addReview(@RequestBody Review review,
+                                            @RequestParam(required = false) Integer userId,
+                                            @RequestParam(required = false) Integer movieId) {
         try {
-            Review savedReview = reviewService.saveReview(review);
+            Review savedReview = reviewService.saveReview(review, userId, movieId);
 
             System.out.println("POST HIT");
             System.out.println(review);
