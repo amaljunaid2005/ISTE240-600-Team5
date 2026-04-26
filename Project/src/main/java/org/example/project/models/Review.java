@@ -1,4 +1,8 @@
-package org.example.project.model;
+// Done by Mehrin Fathima - 418006818
+
+package org.example.project.models;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -6,32 +10,42 @@ import java.time.LocalDate;
  * Represents a review written by a user for a movie.
  * The review includes the following: unique id, rating, text, and the date it was created.
  */
+@Entity
 public class Review {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 1000)
     private String reviewText;
+
+    @Column(nullable = false )
     private int rating; // Rating given by the user (1–10)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = true)
     private UserProfile userProfile;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id", nullable = true)
     private Movie movie;
+
+    @Column(nullable = false)
     private LocalDate reviewDate = LocalDate.now(); // auto-set today
 
     public Review(){
     }
 
-    public Review(int id, String reviewText, int rating, UserProfile userProfile, Movie movie) {
-        this.id = id;
+    public Review(String reviewText, int rating, UserProfile userProfile, Movie movie) {
         this.reviewText = reviewText;
         this.rating = rating;
         this.userProfile = userProfile;
         this.movie = movie;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getReviewText() {

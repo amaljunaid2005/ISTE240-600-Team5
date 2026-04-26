@@ -1,29 +1,45 @@
-package org.example.project.model;
+//Name: Amal Junaid
+//ID: 751008715
+package org.example.project.models;
+
+import jakarta.persistence.*;
+
 
 /*
- * Represents a Movie that can be reviewed or added to a favorites list
+ * Name: Amal Junaid
+ * ID: 751008715
+ * Represents a Movie
  * Includes the name of the movie, its genre, director and lead actor as well as a short description of its premise.
  */
+@Entity
+@Table(name="movies")
 public class Movie {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name="movie_name", length = 100,nullable = false)
     private String movieName;
+
+    @Column(name="year_of_release",length = 50, nullable = false)
     private int releaseYear;
+
+    @Column(name="director",length = 50,nullable = false)
     private String director;
-    private double rating;
+
+    @Column(name="lead_actor",length = 100,nullable = false)
     private String leadActor;
+    @Column(name="genre",length = 50,nullable = false)
     private String genre;
+    @Column(name="description", nullable = false)
     private String description;
 
     public Movie (){};
 
-    public Movie(int id,String movieName,int releaseYear, String director, double rating, String leadActor, String genre, String description) {
-
-        this.id = id;
+    public Movie(String movieName,int releaseYear, String director, String leadActor, String genre, String description) {
         this.movieName = movieName;
         this.releaseYear=releaseYear;
         this.director = director;
-        this.rating = rating;
         this.leadActor = leadActor;
         this.genre = genre;
         this.description = description;
@@ -31,10 +47,6 @@ public class Movie {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getReleaseYear() {
@@ -55,10 +67,6 @@ public class Movie {
 
     public void setDirector(String director) {
         this.director = director;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 
     public void setLeadActor(String leadActor) {
@@ -88,12 +96,6 @@ public class Movie {
 
     public String getDirector() {
         return director;
-    }
-
-
-
-    public double getRating() {
-        return rating;
     }
 
 
