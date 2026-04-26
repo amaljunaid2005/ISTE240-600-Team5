@@ -35,7 +35,9 @@ public class TicketService {
     }
 
     public List<Ticket> getTicketsByUser(int userId) {
-        UserProfile user = userProfileRepository.findById(userId).orElseThrow();
+        UserProfile user = userProfileRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         return ticketRepository.findByUser(user);
     }
 
@@ -44,8 +46,11 @@ public class TicketService {
     }
 
     public Ticket bookTicket(int userId, int movieId, Ticket ticket) {
-        UserProfile user = userProfileRepository.findById(userId).orElseThrow();
-        Movie movie = movieRepository.findById(movieId).orElseThrow();
+        UserProfile user = userProfileRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
 
         ticket.setUser(user);
         ticket.setMovie(movie);
@@ -54,7 +59,8 @@ public class TicketService {
     }
 
     public Ticket updateTicket(Long id, Ticket updated) {
-        Ticket existing = ticketRepository.findById(id).orElseThrow();
+        Ticket existing = ticketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
         existing.setSeat(updated.getSeat());
         existing.setShowTime(updated.getShowTime());
@@ -65,4 +71,5 @@ public class TicketService {
     public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
     }
+}
 }
