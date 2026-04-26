@@ -3,10 +3,12 @@
 package org.example.project.services;
 
 import jakarta.transaction.Transactional;
+import org.example.project.repositories.MovieRepository;
 import org.example.project.repositories.ReviewRepository;
 import org.example.project.models.Movie;
 import org.example.project.models.Review;
 import org.example.project.models.UserProfile;
+import org.example.project.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,26 @@ public class ReviewService {
     @Autowired
     ReviewRepository reviewRepository;
 
-    public Review saveReview(Review reviewToSave) {
+    @Autowired
+    MovieRepository movieRepository;
 
-        // Only check for duplicates if both movie and user are specified
+    @Autowired
+    UsersRepository usersRepository;
+
+    public Review saveReview(Review reviewToSave, Integer userId, Integer movieId) {
+
+        if (userId != null) {
+            UserProfile user = usersRepository.findByUserId(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            reviewToSave.setUserProfile(user);
+        }
+
+        if (movieId != null) {
+            Movie movie = movieRepository.findById(movieId)
+                    .orElseThrow(() -> new RuntimeException("Movie not found"));
+            reviewToSave.setMovie(movie);
+        }
+
         if (reviewToSave.getMovie() != null && reviewToSave.getUserProfile() != null) {
             Review existingReview = reviewRepository
                     .findByMovieAndUserProfile(
@@ -41,6 +60,7 @@ public class ReviewService {
         newReview.setMovie(reviewToSave.getMovie());
         newReview.setRating(reviewToSave.getRating());
         newReview.setReviewDate(reviewToSave.getReviewDate());
+
         return reviewRepository.save(newReview);
     }
 
