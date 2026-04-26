@@ -1,67 +1,67 @@
 //GRISHMA BHANDARI 761001853
-package org.example.project.service;
+package com.moviereview.service;
 
-import org.example.project.model.Ticket;
-import org.example.project.repository.TicketRepository;
+import com.moviereview.model.Movie;
+import com.moviereview.model.Ticket;
+import com.moviereview.model.UserProfile;
+import com.moviereview.repository.MovieRepository;
+import com.moviereview.repository.TicketRepository;
+import com.moviereview.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class TicketService{
-  @Autowired
-  private TicketRepository ticketRepository;
-  //create
-  public Ticket bookTicket(Ticket ticket) {
-          ticket.setShowTime(ticket.getShowTime());
-          return ticketRepository.save(ticket);
-      }
+public class TicketService {
 
-  //read
-  public List<Ticket> getAllTickets() {
-        List<Ticket> tickets = ticketRepository.findAll();
-        refreshStatuses(tickets);
-        return tickets;
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    public List<Ticket> getAllTickets() {
+        return ticketRepository.findAll();
     }
 
-    public Optional<Ticket> getTicketById(int id) {
-        Optional<Ticket> ticket = ticketRepository.findById(id);
-        ticket.ifPresent(t -> {
-            String freshStatus = Ticket.computeStatus(t.getShowTime());
-            if (!freshStatus.equals(t.getStatus())) {
-                ticketRepository.updateStatusById(t.getId(), freshStatus);
-                t.setStatus(freshStatus);
-            }
-        });
-        return ticket;
+    public Optional<Ticket> getTicketById(Long id) {
+        return ticketRepository.findById(id);
     }
 
-    public List<Ticket> getTicketsByUser(int userId) {
-        List<Ticket> tickets = ticketRepository.findByUserId(userId);
-        refreshStatuses(tickets);
-        return tickets;
+    public List<Ticket> getTicketsByUser(Long userId) {
+        UserProfile user = userProfileRepository.findById(userId).orElseThrow();
+        return ticketRepository.findByUser(user);
     }
 
-    public List<Ticket> getTicketsByStatus(String status) {
-        return ticketRepository.findByStatus(status);
+    public List<Ticket> searchByMovieTitle(String title) {
+        return ticketRepository.findByMovieTitleContaining(title);
     }
 
-    public List<Ticket> getTicketsByMovie(int movieId) {
-        return ticketRepository.findByMovieId(movieId);
-    }
-  
+    public Ticket bookTicket(Long userId, Long movieId, Ticket ticket) {
+        UserProfile user = userProfileRepository.findById(userId).orElseThrow();
+        Movie movie = movieRepository.findById(movieId).orElseThrow();
 
-    //update
-   public Ticket updateTicket(int id, Ticket updated) {
-        updated.setId(id);
-        updated.setShowTime(updated.getShowTime());
-        return ticketRepository.save(updated);
+        ticket.setUser(user);
+        ticket.setMovie(movie);
+
+        return ticketRepository.save(ticket);
     }
 
-  //delete
-   public void deleteTicket(int id) {
+    public Ticket updateTicket(Long id, Ticket updated) {
+        Ticket existing = ticketRepository.findById(id).orElseThrow();
+
+        existing.setSeat(updated.getSeat());
+        existing.setShowTime(updated.getShowTime());
+
+        return ticketRepository.save(existing);
+    }
+
+    public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
     }
 }
-
-
