@@ -1,0 +1,67 @@
+//GRISHMA BHANDARI 761001853
+package com.moviereview.service;
+
+import org.example.project.models.Movie;
+import org.example.project.models.Ticket;
+import org.example.project.models.UserProfile
+import org.example.project.repository.MovieRepository;
+import org.example.project.repository.TicketRepository;
+import org.example.project.repository.UserProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class TicketService {
+
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    public List<Ticket> getAllTickets() {
+        return ticketRepository.findAll();
+    }
+
+    public Optional<Ticket> getTicketById(Long id) {
+        return ticketRepository.findById(id);
+    }
+
+    public List<Ticket> getTicketsByUser(Long userId) {
+        UserProfile user = userProfileRepository.findById(userId).orElseThrow();
+        return ticketRepository.findByUser(user);
+    }
+
+    public List<Ticket> searchByMovieTitle(String title) {
+        return ticketRepository.findByMovieTitleContaining(title);
+    }
+
+    public Ticket bookTicket(Long userId, Long movieId, Ticket ticket) {
+        UserProfile user = userProfileRepository.findById(userId).orElseThrow();
+        Movie movie = movieRepository.findById(movieId).orElseThrow();
+
+        ticket.setUser(user);
+        ticket.setMovie(movie);
+
+        return ticketRepository.save(ticket);
+    }
+
+    public Ticket updateTicket(Long id, Ticket updated) {
+        Ticket existing = ticketRepository.findById(id).orElseThrow();
+
+        existing.setSeat(updated.getSeat());
+        existing.setShowTime(updated.getShowTime());
+
+        return ticketRepository.save(existing);
+    }
+
+    public void deleteTicket(Long id) {
+        ticketRepository.deleteById(id);
+    }
+}
