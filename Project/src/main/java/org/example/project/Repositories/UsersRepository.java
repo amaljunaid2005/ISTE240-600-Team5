@@ -13,6 +13,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
+//Name: Madheeha sameen
+// ID : 764002947
+
 public interface UsersRepository extends JpaRepository<UserProfile,Integer> {
 
 //Find methods

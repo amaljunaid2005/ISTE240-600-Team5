@@ -4,6 +4,9 @@ package org.example.project.model;
 
 import jakarta.persistence.*;
 
+//Name: Madheeha sameen
+// ID : 764002947
+
 @Entity
 @Table(name= "UserProfiles")
 public class UserProfile {
