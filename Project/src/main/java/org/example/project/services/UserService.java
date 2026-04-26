@@ -27,6 +27,31 @@ public class UserService {
 
     }
 
+   public  Optional<UserProfile> getUserById(int userId) {
+    return usersRepository.findById(userId);
+    }
+
+    public List<UserProfile> getUserByName(String userName) {
+            return usersRepository.findByUsername(userName);
+
+    }
+
+    public UserProfile updatUserProfile(int UserId, UserProfile userProfileToUpdate) {
+        UserProfile userProfile = usersRepository.findById(UserId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+                userProfile.setUsername(userProfileToUpdate.getUsername());
+                userProfile.setEmail(userProfileToUpdate.getEmail());
+                userProfile.setAge(userProfileToUpdate.getAge());
+                userProfile.setBio(userProfileToUpdate.getBio());
+
+                return usersRepository.save(userProfile);
+    }
+
+
+    public void deleteUser(int UserId) {
+        usersRepository.deleteById(UserId);
+        
+    }
 
 
 

@@ -22,6 +22,8 @@ public interface UsersRepository extends JpaRepository<UserProfile,Integer> {
     Optional<UserProfile> findById(int id);
 
 
+
+
     //custom query
     @Query("SELECT u FROM UserProfile u where u.age > :age")
     List<UserProfile> findByAge(@Param("age") int age);
@@ -48,13 +50,13 @@ public interface UsersRepository extends JpaRepository<UserProfile,Integer> {
 
     //find by field
     List<UserProfile> findByUsername(String username);
+    List<UserProfile> findByEmail(String email);
 
     //delete method
 
     void deleteByUserId(int userId);
 
     boolean existsByUserId(int userId);
-
 
 
 
