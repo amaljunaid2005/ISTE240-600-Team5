@@ -2,8 +2,7 @@
 //ID: 751008715
 package org.example.project.repositories;
 
-import org.example.project.model.Movie;
-import org.hibernate.sql.Update;
+import org.example.project.models.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

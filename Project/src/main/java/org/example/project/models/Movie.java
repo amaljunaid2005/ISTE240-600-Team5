@@ -1,6 +1,6 @@
 //Name: Amal Junaid
 //ID: 751008715
-package org.example.project.model;
+package org.example.project.models;
 
 import jakarta.persistence.*;
 

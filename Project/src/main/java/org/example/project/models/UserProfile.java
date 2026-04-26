@@ -1,6 +1,4 @@
-package org.example.project.model;
-
-import org.springframework.stereotype.Component;
+package org.example.project.models;
 
 public class UserProfile {
     private int userId;

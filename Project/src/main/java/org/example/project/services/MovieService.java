@@ -3,7 +3,7 @@
 package org.example.project.services;
 
 import jakarta.transaction.Transactional;
-import org.example.project.model.Movie;
+import org.example.project.models.Movie;
 import org.example.project.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@
 //ID: 751008715
 package org.example.project.controllers;
 
-import org.example.project.model.Movie;
+import org.example.project.models.Movie;
 import org.example.project.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
