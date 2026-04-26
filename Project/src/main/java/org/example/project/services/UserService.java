@@ -50,7 +50,7 @@ public class UserService {
 
     public void deleteUser(int UserId) {
         usersRepository.deleteById(UserId);
-        
+
     }
 
 

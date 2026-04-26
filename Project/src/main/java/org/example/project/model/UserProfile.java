@@ -18,7 +18,7 @@ public class UserProfile {
     private String username;
 
 
-    @Column(name="email" , length = 50 , nullable = false , unique = true)
+    @Column(name="user_email" , length = 50 , nullable = false , unique = true)
     private String email;
 
 

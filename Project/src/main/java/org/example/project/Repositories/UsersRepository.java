@@ -19,9 +19,7 @@ public interface UsersRepository extends JpaRepository<UserProfile,Integer> {
     //findAll already exists by default
 
     //find byid
-    Optional<UserProfile> findById(int id);
-
-
+    Optional<UserProfile> findByUserId(int UserId);
 
 
     //custom query
