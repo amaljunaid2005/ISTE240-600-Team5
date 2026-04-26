@@ -2,6 +2,7 @@
 
 package org.example.project.services;
 
+import jakarta.transaction.Transactional;
 import org.example.project.models.Movie;
 import org.example.project.models.Ticket;
 import org.example.project.models.UserProfile;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class TicketService {
 
     @Autowired
@@ -72,4 +74,4 @@ public class TicketService {
         ticketRepository.deleteById(id);
     }
 }
-}
+
