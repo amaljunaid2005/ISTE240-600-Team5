@@ -1,3 +1,5 @@
+//Name: Amal Junaid
+//ID: 751008715
 package org.example.project.model;
 
 import jakarta.persistence.*;
@@ -6,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Represents a Movie that can be reviewed or added to a favorites list
+ * Name: Amal Junaid
+ * ID: 751008715
+ * Represents a Movie
  * Includes the name of the movie, its genre, director and lead actor as well as a short description of its premise.
  */
 @Entity
