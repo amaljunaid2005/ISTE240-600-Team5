@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Name: Amal Junaid -->
+    <!-- ID: 751008715 -->
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-content">
+        <a href="/" class="nav-logo">Reel<span>Talk</span></a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/movies.html">Movies</a>
+            <a href="/reviews.html">Reviews</a>
+            <a href="/users.html">Users</a>
+            <a href="/tickets.html">Tickets</a>
+        </div>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <h1 class="page-title">Movies</h1>
+    <p class="page-subtitle">All entries</p>
+    <div class="red-rule"></div>
+    <div class="toolbar">
+        <div class="search-wrap">
+            <span class="search-icon">&#9906;</span>
+            <!-- Search -->
+            <input type="text" id="searchInput" placeholder="Search by movie name">
+        </div>
+        <!-- Add Button -->
+        <button class="btn-add" id="addBtn">Add New Movie</button>
+    </div>
+
+
+    <!-- Table -->
+    <div class="table-card">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Movie Name</th>
+                <th>Year of Release</th>
+                <th>Director</th>
+                <th>Lead Actor</th>
+                <th>Genre</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="movieTable"></tbody>
+        </table>
+    </div>
+    <!-- Form -->
+    <div id="movieForm" class="modal-content" style="display:none;">
+        <input type="hidden" id="movieId">
+
+        <div>
+            <label for="movieName">Movie Name</label>
+            <input type="text" id="movieName" class="form-control" placeholder="Name of movie">
+        </div>
+        <div>
+            <label for="releaseYear">Year of Release</label>
+            <input type="number" id="releaseYear" class="form-control" placeholder="Movie release year">
+        </div>
+        <div>
+            <label for="director">Director</label>
+            <input type="text" id="director" class="form-control" placeholder="Movie director">
+        </div>
+        <div>
+            <label for="leadActor">Lead Actor</label>
+            <input type="text" id="leadActor" class="form-control" placeholder="Lead actor">
+        </div>
+        <div>
+            <label for="genre">Genre</label>
+            <input type="text" id="genre" class="form-control" placeholder="Movie genre">
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input type="text" id="description" class="form-control" placeholder="Movie premise">
+        </div>
+
+        <button class="btn btn-success" id="saveBtn">Save</button>
+        <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+    </div>
+
+</div>
+<script>
+    const API_URL = "http://localhost:8080/api/movies";
+
+    //function for loading rows into table
+    function loadMovies(){
+        $.get(API_URL,function(data){
+            let rows="";
+            data.forEach(movie => {
+                rows+=`
+                <tr>
+                <td>${movie.id}</td>
+                <td>${movie.movieName}</td>
+                <td>${movie.releaseYear}</td>
+                <td>${movie.director}</td>
+                <td>${movie.leadActor}</td>
+                <td>${movie.genre}</td>
+                <td>${movie.description}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm editBtn" data-id="${movie.id}">Edit</button>
+                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${movie.id}">Delete</button>
+                </td>
+                </tr>
+                `;
+            });
+            $("#movieTable").html(rows);
+        });
+    }
+
+    // Deleting a record
+    $(document).on("click", ".deleteBtn", function() {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: `${API_URL}/${id}`,
+            type: "DELETE",
+            success: function() {
+                loadMovies();
+            }
+        });
+    });
+    // Editing a record button
+    $(document).on("click", ".editBtn", function() {
+        let id = $(this).data("id");
+
+        $.get(`${API_URL}/${id}`, function(movie) {
+            $("#movieId").val(movie.id);
+            $("#movieName").val(movie.movieName);
+            $("#releaseYear").val(movie.releaseYear);
+            $("#director").val(movie.director);
+            $("#leadActor").val(movie.leadActor);
+            $("#genre").val(movie.genre);
+            $("#description").val(movie.description);
+
+
+            $("#movieForm").show();
+        });
+    });
+    // Searching using movie name
+    $("#searchInput").on("input", function() {
+        let query = $(this).val();
+
+        if (query === "") {
+            loadMovies();
+            return;
+        }
+
+        $.get(`${API_URL}/search?name=${query}`, function(data) {
+            let rows = "";
+            data.forEach(movie => {
+                rows += `
+                <tr>
+                <td>${movie.id}</td>
+                <td>${movie.movieName}</td>
+                <td>${movie.releaseYear}</td>
+                <td>${movie.director}</td>
+                <td>${movie.leadActor}</td>
+                <td>${movie.genre}</td>
+                <td>${movie.description}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm editBtn" data-id="${movie.id}">Edit</button>
+                        <button class="btn btn-danger btn-sm deleteBtn" data-id="${movie.id}">Delete</button>
+                    </td>
+                </tr>
+            `;
+            });
+            $("#movieTable").html(rows);
+        });
+    });
+
+    //showing form when add button is clicked
+    $("#addBtn").click(function (){
+        $("#movieId").val("");
+        $("#movieName").val("");
+        $("#releaseYear").val("");
+        $("#director").val("");
+        $("#leadActor").val("");
+        $("#genre").val("");
+        $("#description").val("");
+
+
+        $("#movieForm").show();
+    });
+
+    //saving changes when form filled for adding new or updating existing movie
+    $("#saveBtn").click(function() {
+        console.log("Save button clicked");
+        let id = $("#movieId").val();
+
+        let movie = {
+            movieName: $("#movieName").val(),
+            releaseYear: parseInt($("#releaseYear").val()),
+            director: $("#director").val(),
+            leadActor: $("#leadActor").val(),
+            genre: $("#genre").val(),
+            description: $("#description").val()
+        };
+        if (!movie.movieName) {
+            alert("Movie name is required");
+            return;
+        }
+
+        if (!movie.releaseYear || isNaN(movie.releaseYear)) {
+            alert("Valid release year is required");
+            return;
+        }
+
+        if (!movie.director) {
+            alert("Director is required");
+            return;
+        }
+
+        if (!movie.leadActor){
+            alert("Lead Actor is required")
+            return;
+        }
+
+        if (!movie.genre){
+            alert("Genre is required")
+            return;
+        }
+
+        if (!movie.description){
+            alert("description is required")
+            return;
+        }
+
+
+        if (id) {
+            //updating existing
+            $.ajax({
+                url: `${API_URL}/${id}`,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(movie),
+                success: function() {
+                    loadMovies();
+                    $("#movieForm").hide();
+                }
+            });
+        } else {
+            //creating new
+            $.ajax({
+                url: API_URL,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(movie),
+                success: function() {
+                    loadMovies();
+                    $("#movieForm").hide();
+                }
+            });
+        }
+    });
+    //cancelling form
+    $("#cancelBtn").click(function (){
+        console.log("Save button clicked");
+        $("#movieForm").hide();
+    });
+
+    //loading table when web app loads
+    $(document).ready(function (){
+        loadMovies();
+    });
+
+</script>
+</body>
+</html>
