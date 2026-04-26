@@ -2,8 +2,8 @@
 
 package com.moviereview.controller;
 
-import com.moviereview.model.Ticket;
-import com.moviereview.service.TicketService;
+import org.example.project.models.Ticket;
+import org.example.project.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
