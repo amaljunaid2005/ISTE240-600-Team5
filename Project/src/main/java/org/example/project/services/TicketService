@@ -1,12 +1,12 @@
 //GRISHMA BHANDARI 761001853
 package com.moviereview.service;
 
-import com.moviereview.model.Movie;
-import com.moviereview.model.Ticket;
-import com.moviereview.model.UserProfile;
-import com.moviereview.repository.MovieRepository;
-import com.moviereview.repository.TicketRepository;
-import com.moviereview.repository.UserProfileRepository;
+import org.example.project.models.Movie;
+import org.example.project.models.Ticket;
+import org.example.project.models.UserProfile
+import org.example.project.repository.MovieRepository;
+import org.example.project.repository.TicketRepository;
+import org.example.project.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
