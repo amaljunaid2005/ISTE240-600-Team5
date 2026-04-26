@@ -153,6 +153,16 @@
         });
     });
 
+    $("#addBtn").click(function() {
+    $("#userId").val("");
+    $("#username").val("");
+    $("#email").val("");
+    $("#age").val("");
+    $("#bio").val("");
+
+    $("#userForm").show();
+});
+
 
     // SEARCH
     $("#searchInput").on("input", function() {
