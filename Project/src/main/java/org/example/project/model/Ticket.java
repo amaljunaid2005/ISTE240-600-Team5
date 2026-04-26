@@ -28,8 +28,6 @@ public class Ticket {
     @Column(name = "seat")
     private String seat;
 
-    @Column(name = "status")
-    private String status;
 
     public Ticket() {}
 
@@ -38,13 +36,6 @@ public class Ticket {
         this.movieId = movieId;
         this.showTime = showTime;
         this.seat = seat;
-        this.status = showTime.toLocalDate().isBefore(LocalDate.now())
-                ? "previously_watched" : "going_to_watch";
-    }
-    public static String computeStatus(LocalDateTime showTime) {
-    return showTime.toLocalDate().isBefore(LocalDate.now())
-            ? "previously_watched" : "going_to_watch";
-}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -58,13 +49,7 @@ public class Ticket {
     public LocalDateTime getShowTime() { return showTime; }
     public void setShowTime(LocalDateTime showTime) {
         this.showTime = showTime;
-        this.status = showTime.toLocalDate().isBefore(LocalDate.now())
-                ? "previously_watched" : "going_to_watch";
-    }
-
+     
     public String getSeat() { return seat; }
     public void setSeat(String seat) { this.seat = seat; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 }
