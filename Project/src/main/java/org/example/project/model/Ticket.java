@@ -12,14 +12,15 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserProfile user;
 
-    @Column(name = "movie_id")
-    private int movieId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id", nullable = false)
+    private Movie movie;
 
     @Column(name = "show_time")
     private LocalDateTime showTime;
@@ -51,8 +52,8 @@ public class Ticket {
     public UserProfile getUser() { return user; }
     public void setUser(UserProfile user) { this.user = user; }
 
-    public int getMovieId() { return movieId; }
-    public void setMovieId(int movieId) { this.movieId = movieId; }
+    public Movie getMovie() { return movie; }
+    public void setMovie(Movie movie) { this.movie = movie; }
 
     public LocalDateTime getShowTime() { return showTime; }
     public void setShowTime(LocalDateTime showTime) {
