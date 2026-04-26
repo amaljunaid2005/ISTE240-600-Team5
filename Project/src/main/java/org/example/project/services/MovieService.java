@@ -33,13 +33,15 @@ public class MovieService {
     public Movie updateMovie(int id, Movie movieToUpdate){
         Movie movie = movieRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
+
         movie.setMovieName(movieToUpdate.getMovieName());
         movie.setDescription(movieToUpdate.getDescription());
         movie.setDirector(movieToUpdate.getDirector());
         movie.setGenre(movieToUpdate.getGenre());
         movie.setLeadActor(movieToUpdate.getLeadActor());
         movie.setReleaseYear(movieToUpdate.getReleaseYear());
-        return movieRepo.save(movieToUpdate);
+
+        return movieRepo.save(movie);
     }
 
     public void deleteMovie(int id){
