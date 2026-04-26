@@ -89,6 +89,100 @@
 </div>
 
 
+<script>
+    const API_URL = "http://localhost:8080/api/UserProfiles";
 
+
+    // LOAD USERS
+    function loadUsers(){
+        $.get(API_URL,function(data){
+            let rows="";
+            data.forEach(user => {
+                rows+=`
+            <tr>
+            <td>${user.userId}</td>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.age}</td>
+            <td>${user.bio}</td>
+            <td>
+                <button class="btn btn-warning btn-sm editBtn" data-id="${user.userId}">Edit</button>
+                <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.userId}">Delete</button>
+            </td>
+            </tr>
+            `;
+            });
+            $("#userTable").html(rows);
+        });
+    }
+
+
+    // DELETE
+    $(document).on("click", ".deleteBtn", function() {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: `${API_URL}/${id}`,
+            type: "DELETE",
+            success: function() {
+                loadUsers();
+            }
+        });
+    });
+
+
+    // EDIT
+    $(document).on("click", ".editBtn", function() {
+        let id = $(this).data("id");
+
+        $.get(`${API_URL}/${id}`, function(user) {
+
+            $("#userId").val(user.userId);
+            $("#username").val(user.username);
+            $("#email").val(user.email);
+            $("#age").val(user.age);
+            $("#bio").val(user.bio);
+
+            $("#userForm").show();
+        });
+    });
+
+
+    // SEARCH
+    $("#searchInput").on("input", function() {
+        let query = $(this).val();
+
+        if (query === "") {
+            loadUsers();
+            return;
+        }
+
+        $.get(`${API_URL}/search?name=${query}`, function(data) {
+
+            let rows = "";
+
+            data.forEach(user => {
+                rows += `
+            <tr>
+            <td>${user.userId}</td>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.age}</td>
+            <td>${user.bio}</td>
+            <td>
+                <button class="btn btn-warning btn-sm editBtn" data-id="${user.userId}">Edit</button>
+                <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.userId}">Delete</button>
+            </td>
+            </tr>
+            `;
+            });
+
+            $("#userTable").html(rows);
+        });
+    });
+
+    
+
+</script>
 </body>
 </html>
