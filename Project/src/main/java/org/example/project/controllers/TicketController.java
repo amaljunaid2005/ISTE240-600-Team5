@@ -29,13 +29,10 @@ public class TicketController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ FIXED: int instead of Long
     @GetMapping("/user/{userId}")
     public List<Ticket> getByUser(@PathVariable int userId) {
         return ticketService.getTicketsByUser(userId);
     }
-
- 
 
     @GetMapping("/search")
     public List<Ticket> search(@RequestParam String title) {
@@ -55,6 +52,7 @@ public class TicketController {
         if (ticketService.getTicketById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         return ResponseEntity.ok(ticketService.updateTicket(id, ticket));
     }
 
@@ -63,6 +61,7 @@ public class TicketController {
         if (ticketService.getTicketById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         ticketService.deleteTicket(id);
         return ResponseEntity.noContent().build();
     }
