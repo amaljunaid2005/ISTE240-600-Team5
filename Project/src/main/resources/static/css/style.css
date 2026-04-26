@@ -429,3 +429,72 @@ tbody td {
     margin-bottom: 1.5rem;
     border-radius: 2px;
 }
+
+/* ── Dashboard Grid ── */
+.main-dashboard {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ── Navigation Cards ── */
+.nav-card {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem 1.4rem;
+    text-decoration: none;
+    color: var(--text-main);
+
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle hover lift */
+.nav-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-neon);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* icon styling */
+.icon-placeholder {
+    font-size: 1.8rem;
+    margin-bottom: 0.9rem;
+}
+
+/* card title */
+.nav-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+/* description */
+.nav-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* accents*/
+.nav-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--primary-neon);
+    transition: width 0.3s ease;
+}
+
+.nav-card:hover::after {
+    width: 100%;
+}
