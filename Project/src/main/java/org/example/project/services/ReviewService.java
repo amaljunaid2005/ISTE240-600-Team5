@@ -20,9 +20,20 @@ public class ReviewService {
     @Autowired
     ReviewRepository reviewRepository;
 
-    public Review saveReview(Review reviewToSave) {
+    public Review saveReview(Review reviewToSave, Integer userId, Integer movieId) {
 
-        // Only check for duplicates if both movie and user are specified
+        if (userId != null) {
+            UserProfile user = usersRepository.findByUserId(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            reviewToSave.setUserProfile(user);
+        }
+
+        if (movieId != null) {
+            Movie movie = movieRepository.findById(movieId)
+                    .orElseThrow(() -> new RuntimeException("Movie not found"));
+            reviewToSave.setMovie(movie);
+        }
+
         if (reviewToSave.getMovie() != null && reviewToSave.getUserProfile() != null) {
             Review existingReview = reviewRepository
                     .findByMovieAndUserProfile(
@@ -41,8 +52,10 @@ public class ReviewService {
         newReview.setMovie(reviewToSave.getMovie());
         newReview.setRating(reviewToSave.getRating());
         newReview.setReviewDate(reviewToSave.getReviewDate());
+
         return reviewRepository.save(newReview);
     }
+
 
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
