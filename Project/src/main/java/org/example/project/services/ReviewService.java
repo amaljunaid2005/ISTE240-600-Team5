@@ -102,16 +102,24 @@ public class ReviewService {
         reviewRepository.deleteById(id);
     }
 
-    public Review updateReview(Long id, Review reviewToUpdate){
+     public Review updateReview(Long id, Review reviewToUpdate, int userId, int movieId){
 
         // Check if the review exists
         Review existingReview = reviewRepository.findById(id).orElseThrow(() -> new RuntimeException("Review not found for the provided ID"));
+        UserProfile user = usersRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
 
         existingReview.setReviewText(reviewToUpdate.getReviewText());
         existingReview.setRating(reviewToUpdate.getRating());
-        existingReview.setUserProfile(reviewToUpdate.getUserProfile());
-        existingReview.setMovie(reviewToUpdate.getMovie());
+        existingReview.setUserProfile(user);
+        existingReview.setMovie(movie);
+        existingReview.setReviewDate(reviewToUpdate.getReviewDate());
 
         return reviewRepository.save(existingReview);
+    }
+
     }
 }
