@@ -41,10 +41,12 @@ public class ReviewController {
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Review> addReview(@RequestBody Review review) {
+     @PostMapping
+    public ResponseEntity<Review> addReview(@RequestBody Review review,
+                                            @RequestParam(required = false) Integer userId,
+                                            @RequestParam(required = false) Integer movieId) {
         try {
-            Review savedReview = reviewService.saveReview(review);
+            Review savedReview = reviewService.saveReview(review, userId, movieId);
 
             System.out.println("POST HIT");
             System.out.println(review);
@@ -58,9 +60,11 @@ public class ReviewController {
     @PutMapping("/{id}")
     public ResponseEntity<Review> updateReview(
             @PathVariable Long id,
-            @RequestBody Review review) {
+            @RequestBody Review review,
+            @RequestParam int userId,
+            @RequestParam int movieId) {
         try {
-            Review updatedReview = reviewService.updateReview(id, review);
+            Review updatedReview = reviewService.updateReview(id, review, userId, movieId);
             return new ResponseEntity<>(updatedReview, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -68,6 +72,7 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
